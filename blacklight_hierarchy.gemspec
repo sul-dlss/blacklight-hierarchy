@@ -7,11 +7,11 @@ require "blacklight/hierarchy/version"
 Gem::Specification.new do |s|
   s.name        = "blacklight-hierarchy"
   s.version     = Blacklight::Hierarchy::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of Blacklight::Hierarchy."
-  s.description = "TODO: Description of Blacklight::Hierarchy."
+  s.authors     = ["Michael B. Klein"]
+  s.email       = ["mbklein@stanford.edu"]
+  s.homepage    = "https://github.com/sul-dlss/blacklight-hierarchy"
+  s.summary     = "Hierarchical Facets for Blacklight"
+  s.description = "Allows delimited solr facets to become hierarchical trees in Blacklight."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
