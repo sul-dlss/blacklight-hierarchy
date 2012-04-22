@@ -1,4 +1,11 @@
 /*
+ * Required by Blacklight:
+ *= require 'jquery/ui-lightness/jquery-ui-1.8.1.custom.css'
+ *
+ * This is the default theme. You can modify many of the settings 
+ * by editing your local app/assets/stylesheets/blacklight_themes/standard.css
+ *= require 'blacklight_themes/standard'         
+ *
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -10,4 +17,5 @@
  *
  *= require_self
  *= require_tree .
+ *= require blacklight/hierarchy/hierarchy
 */

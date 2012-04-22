@@ -1,7 +1,7 @@
 require 'test_helper'
 
-class BlacklightHierarchyTest < ActiveSupport::TestCase
+class Blacklight::HierarchyTest < ActiveSupport::TestCase
   test "truth" do
-    assert_kind_of Module, BlacklightHierarchy
+    assert_kind_of Module, Blacklight::Hierarchy
   end
 end

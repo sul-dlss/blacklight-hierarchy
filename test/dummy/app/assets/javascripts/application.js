@@ -12,4 +12,11 @@
 //
 //= require jquery
 //= require jquery_ujs
+//
+// Required by Blacklight
+//= require jquery-ui
+//= require blacklight/blacklight
 //= require_tree .
+//
+// Required by Blacklight Hierarchy
+//= require blacklight/hierarchy/hierarchy

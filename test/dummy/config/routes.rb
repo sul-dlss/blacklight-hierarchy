@@ -1,4 +1,8 @@
 Dummy::Application.routes.draw do
+  Blacklight.add_routes(self)
+
+  root :to => "catalog#index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
