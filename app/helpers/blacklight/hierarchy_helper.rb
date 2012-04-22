@@ -1,4 +1,4 @@
-module FacetHierarchyHelper
+module Blacklight::HierarchyHelper
 
 def is_hierarchical?(field_name)
   (prefix,order,suffix) = field_name.split(/_/)
@@ -62,8 +62,8 @@ def render_facet_rotate(field_name)
 end
 
 # Putting bare HTML strings in a helper sucks. But in this case, with a 
-# lot of recursive tree-walking going on, it's a lot faster than either 
-# render(:partial) or content_tag
+# lot of recursive tree-walking going on, it's an order of magnitude faster
+# than either render(:partial) or content_tag
 def render_facet_hierarchy_item(field_name, data, key)
   item = data[:_]
   subset = data.reject { |k,v| ! k.is_a?(String) }
@@ -104,12 +104,9 @@ end
 # Standard display of a SELECTED facet value, no link, special span
 # with class, and 'remove' button.
 def render_selected_qfacet_value(facet_solr_field, item)
-  c = content_tag(:span, :class => "selected label") do
-    render_facet_value(facet_solr_field, item, :suppress_link => true)
+  content_tag(:span, render_qfacet_value(facet_solr_field, item, :suppress_link => true), :class => "selected label") +
+    link_to("[remove]", remove_facet_params(facet_solr_field, item.qvalue, params), :class=>"remove")
   end
-
-  link_to(c, remove_facet_params(facet_solr_field, item.qvalue, params), :class=>"remove")
-end
 
 HierarchicalFacetItem = Struct.new :qvalue, :value, :hits
 def facet_tree(prefix)

@@ -1,5 +1,5 @@
-module BlacklightHierarchy
-  module HierarchicalFacets
+module Blacklight
+  module Hierarchy
     class FacetItem
       attr_reader :qname, :hits
   
