@@ -1,2 +1,8 @@
 test/dummy/jetty
 .powenv
+test/dummy/tmp
+test/dummy/Gemfile
+Gemfile.lock
+test/dummy/log
+*.sqlite3
+.rvmrc
