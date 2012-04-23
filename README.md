@@ -4,7 +4,11 @@ This plugin provides hierarchical facets for [Blacklight](https://github.com/pro
 
 ## Usage
 
-1. Index your hierarchies in colon-separated list. For example, items in a "processing" queue with a "copy" action, might be indexed as
+1. Add the plugin to your Blacklight app's Gemfile
+
+        gem 'blacklight-hierarchy', :git => 'git@github.com:sul-dlss/blacklight-hierarchy.git'
+        
+2. Index your hierarchies in colon-separated list. For example, items in a "processing" queue with a "copy" action, might be indexed as
 
         <doc>
           <field name="id">foo</field>
@@ -33,12 +37,12 @@ This plugin provides hierarchical facets for [Blacklight](https://github.com/pro
             - [completed](#) (1)
             - [waiting](#) (1)
 
-2. In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial
+3. In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial
 
         config.add_facet_field 'queue_status_facet', :label => 'Queue Status', 
             :partial => 'blacklight/hierarchy/facet_hierarchy'
     
-3. Add the hierarchy-specific options to the controller configuration 
+4. Add the hierarchy-specific options to the controller configuration 
 
         config.facet_display = {
           :hierarchy => {
