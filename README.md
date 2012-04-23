@@ -37,6 +37,8 @@ You can skip as many levels as you'd like, as long as the "leaf" values are inde
         - [completed](#) (1)
         - [waiting](#) (1)
 
+(**Note**: If you use Solr's built-in [PathHierarchyTokenizerFactory](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.PathHierarchyTokenizerFactory), you can index the entire depth by supplying only the leaf nodes.)
+
 In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial
 
     config.add_facet_field 'queue_status_facet', :label => 'Queue Status', 
