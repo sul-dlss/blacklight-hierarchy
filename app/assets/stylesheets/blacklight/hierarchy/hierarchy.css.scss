@@ -10,6 +10,6 @@
 
   ul.facet-hierarchy {
     li.h-node {
-      list-style-image: image_url("blacklight/hierarchy/collapsed.png"); }
+      list-style-image: asset_data_url("blacklight/hierarchy/collapsed.png"); }
     li.h-node.twiddle-open {
-      list-style-image: image_url("blacklight/hierarchy/expanded.png"); } } }
+      list-style-image: asset_data_url("blacklight/hierarchy/expanded.png"); } } }
