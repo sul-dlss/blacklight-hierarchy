@@ -4,53 +4,53 @@ This plugin provides hierarchical facets for [Blacklight](https://github.com/pro
 
 ## Usage
 
-1. Add the plugin to your Blacklight app's Gemfile
+Add the plugin to your Blacklight app's Gemfile
 
-        gem 'blacklight-hierarchy', :git => 'git@github.com:sul-dlss/blacklight-hierarchy.git'
+    gem 'blacklight-hierarchy', :git => 'git@github.com:sul-dlss/blacklight-hierarchy.git'
         
-2. Index your hierarchies in colon-separated list. For example, items in a "processing" queue with a "copy" action, might be indexed as
+Index your hierarchies in colon-separated list. For example, items in a "processing" queue with a "copy" action, might be indexed as
 
-        <doc>
-          <field name="id">foo</field>
-          <field name="queue_status_facet">processing</field>
-          <field name="queue_status_facet">processing:copy</field>
-          <field name="queue_status_facet">processing:copy:waiting</field>
-        </doc>
-        <doc>
-          <field name="id">bar</field>
-          <field name="queue_status_facet">processing</field>
-          <field name="queue_status_facet">processing:copy</field>
-          <field name="queue_status_facet">processing:copy:completed</field>
-        </doc>
+    <doc>
+      <field name="id">foo</field>
+      <field name="queue_status_facet">processing</field>
+      <field name="queue_status_facet">processing:copy</field>
+      <field name="queue_status_facet">processing:copy:waiting</field>
+    </doc>
+    <doc>
+      <field name="id">bar</field>
+      <field name="queue_status_facet">processing</field>
+      <field name="queue_status_facet">processing:copy</field>
+      <field name="queue_status_facet">processing:copy:completed</field>
+    </doc>
         
-    That would cause the facet count to appear at all three levels
+That would cause the facet count to appear at all three levels
 
-    - [processing](#) (2)
-        - [copy](#) (2)
-            - [completed](#) (1)
-            - [waiting](#) (1)
+- [processing](#) (2)
+  - [copy](#) (2)
+    - [completed](#) (1)
+    - [waiting](#) (1)
 
-    You can skip as many levels as you'd like, as long as the "leaf" values are indexed. For example, if you didn't index the "processing" part alone, it will simply be a container, not a clickable/countable facet:
+You can skip as many levels as you'd like, as long as the "leaf" values are indexed. For example, if you didn't index the "processing" part alone, it will simply be a container, not a clickable/countable facet:
 
-    - processing
-        - [copy](#) (2)
-            - [completed](#) (1)
-            - [waiting](#) (1)
+- processing
+  - [copy](#) (2)
+    - [completed](#) (1)
+    - [waiting](#) (1)
 
-3. In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial
+In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial
 
-        config.add_facet_field 'queue_status_facet', :label => 'Queue Status', 
-            :partial => 'blacklight/hierarchy/facet_hierarchy'
+    config.add_facet_field 'queue_status_facet', :label => 'Queue Status', 
+        :partial => 'blacklight/hierarchy/facet_hierarchy'
     
-4. Add the hierarchy-specific options to the controller configuration 
+Add the hierarchy-specific options to the controller configuration 
 
-        config.facet_display = {
-          :hierarchy => {
-            'tag' => [nil]
-          }
-        }
+    config.facet_display = {
+      :hierarchy => {
+        'tag' => [nil]
+      }
+    }
 
-    (The `[nil]` value is present in support of rotatable facet hierarchies, which I don't have time to document right now.)
+(The `[nil]` value is present in support of rotatable facet hierarchies, which I don't have time to document right now.)
 
 ## Caveats
 
