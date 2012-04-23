@@ -26,16 +26,16 @@ Index your hierarchies in colon-separated list. For example, items in a "process
 That would cause the facet count to appear at all three levels
 
 - [processing](#) (2)
-  - [copy](#) (2)
-    - [completed](#) (1)
-    - [waiting](#) (1)
+    - [copy](#) (2)
+        - [completed](#) (1)
+        - [waiting](#) (1)
 
 You can skip as many levels as you'd like, as long as the "leaf" values are indexed. For example, if you didn't index the "processing" part alone, it will simply be a container, not a clickable/countable facet:
 
 - processing
-  - [copy](#) (2)
-    - [completed](#) (1)
-    - [waiting](#) (1)
+    - [copy](#) (2)
+        - [completed](#) (1)
+        - [waiting](#) (1)
 
 In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial
 
