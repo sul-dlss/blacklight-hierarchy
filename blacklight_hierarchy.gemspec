@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Hierarchical Facets for Blacklight"
   s.description = "Allows delimited solr facets to become hierarchical trees in Blacklight."
 
-  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
+  s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.0"
