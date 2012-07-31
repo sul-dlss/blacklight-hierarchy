@@ -117,6 +117,8 @@ def facet_tree(prefix)
       facet_field = [prefix,key,'facet'].compact.join('_')
       @facet_tree[prefix][facet_field] ||= {}
       data = @response.facet_by_field_name(facet_field)
+      next if data.nil?
+
       data.items.each { |facet_item|
         path = facet_item.value.split(/\s*:\s*/)
         loc = @facet_tree[prefix][facet_field]
