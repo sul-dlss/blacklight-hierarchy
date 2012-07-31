@@ -94,7 +94,7 @@ def render_hierarchy(field)
   tree = facet_tree(prefix)[field.field]
   tree.keys.sort.collect do |key|
     render_facet_hierarchy_item(field.field, tree[key], key)
-  end
+  end.join("\n").html_safe
 end
 
 def render_qfacet_value(facet_solr_field, item, options ={})    
