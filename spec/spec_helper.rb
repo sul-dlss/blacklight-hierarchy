@@ -19,7 +19,7 @@ VCR.configure do |config|
   config.hook_into :fakeweb
   config.cassette_library_dir = 'spec/vcr_cassettes'
   config.default_cassette_options = {
-      :serialize_with => :syck 
+      :serialize_with => :psych 
   }
 end
 
