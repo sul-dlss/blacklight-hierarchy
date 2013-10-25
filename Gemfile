@@ -15,3 +15,6 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'ruby-debug'
+
+gem 'sqlite3'
+gem 'fakeweb'
