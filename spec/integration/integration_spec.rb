@@ -7,7 +7,7 @@ describe "catalog" do
     CatalogController.configure_blacklight do |config|
       config.index.show_link = 'title_display'
       config.default_solr_params = {
-        :per_page => 10
+        :rows => 10
       }
       config.add_facet_field 'tag_facet', :label => 'Tag', :partial => 'blacklight/hierarchy/facet_hierarchy'
     config.facet_display = {
