@@ -1,7 +1,7 @@
 module Blacklight::HierarchyHelper
 
 def is_hierarchical?(field_name)
-  (prefix,order,suffix) = field_name.split(/_/)
+  (prefix,order) = field_name.split(/_/, 2)
   list = blacklight_config.facet_display[:hierarchy][prefix] and list.include?(order)
 end
     
@@ -18,7 +18,7 @@ end
 def hide_facet?(field_name)
   if is_hierarchical?(field_name)
     prefix = field_name.split(/_/).first
-    field_name != "#{prefix}_#{facet_order(prefix)}_facet"
+    field_name != "#{prefix}_#{facet_order(prefix)}"
   else
     false
   end
@@ -39,8 +39,8 @@ end
 
 def rotate_facet_params(prefix, from, to, p=params.dup)
   return p if from == to
-  from_field = "#{prefix}_#{from}_facet"
-  to_field = "#{prefix}_#{to}_facet"
+  from_field = "#{prefix}_#{from}"
+  to_field = "#{prefix}_#{to}"
   p[:f] = (p[:f] || {}).dup # the command above is not deep in rails3, !@#$!@#$
   p[:f][from_field] = (p[:f][from_field] || []).dup
   p[:f][to_field] = (p[:f][to_field] || []).dup
@@ -53,7 +53,7 @@ end
 
 def render_facet_rotate(field_name)
   if is_hierarchical?(field_name)
-    (prefix,order,suffix) = field_name.split(/_/)
+    (prefix,order) = field_name.split(/_/, 2)
     new_order = facet_after(prefix,order)
     new_params = rotate_facet_params(prefix,order,new_order)
     new_params["#{prefix}_facet_order"] = new_order
@@ -114,7 +114,7 @@ def facet_tree(prefix)
   if @facet_tree[prefix].nil?
     @facet_tree[prefix] = {}
     blacklight_config.facet_display[:hierarchy][prefix].each { |key|
-      facet_field = [prefix,key,'facet'].compact.join('_')
+      facet_field = [prefix,key].compact.join('_')
       @facet_tree[prefix][facet_field] ||= {}
       data = @response.facet_by_field_name(facet_field)
       next if data.nil?
