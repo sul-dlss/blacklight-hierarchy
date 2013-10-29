@@ -54,6 +54,9 @@ end
 def render_facet_rotate(field_name)
   if is_hierarchical?(field_name)
     (prefix,order) = field_name.split(/_/, 2)
+
+    return if blacklight_config.facet_display[:hierarchy][prefix].length < 2
+
     new_order = facet_after(prefix,order)
     new_params = rotate_facet_params(prefix,order,new_order)
     new_params["#{prefix}_facet_order"] = new_order
