@@ -1,9 +1,32 @@
 #!/usr/bin/env rake
 begin
   require 'bundler/setup'
+  Bundler::GemHelper.install_tasks
 rescue LoadError
   puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
 end
+
+require 'engine_cart/rake_task'
+TEST_APP_TEMPLATES = 'spec/test_app_templates'
+TEST_APP = 'spec/internal'
+#ZIP_URL = "https://github.com/projectblacklight/blacklight-jetty/archive/v4.0.0.zip"
+APP_ROOT = File.expand_path("..", __FILE__)
+
+task :default => :ci
+
+
+require 'rspec/core/rake_task'
+
+desc "Run specs"
+RSpec::Core::RakeTask.new(:rspec) do |spec|
+  spec.rspec_opts = ["-c", "-f progress", "-r ./spec/spec_helper.rb"]
+end
+task :spec => :rspec
+
+
+desc "Execute Continuous Integration Build"
+task :ci => ['engine_cart:clean', 'engine_cart:generate', 'rspec']
+
 begin
   require 'rdoc/task'
 rescue LoadError
@@ -12,6 +35,7 @@ rescue LoadError
   RDoc::Task = Rake::RDocTask
 end
 
+desc "Create rdoc"
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Blacklight::Hierarchy'
@@ -19,20 +43,3 @@ RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_files.include('README.rdoc')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end
-
-
-
-
-Bundler::GemHelper.install_tasks
-
-require 'rake/testtask'
-
-Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/**/*_test.rb'
-  t.verbose = false
-end
-
-
-task :default => :test

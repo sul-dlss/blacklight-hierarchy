@@ -6,3 +6,8 @@ Gemfile.lock
 test/dummy/log
 *.sqlite3
 .rvmrc
+spec/internal
+tmp
+coverage
+pkg
+.bundle

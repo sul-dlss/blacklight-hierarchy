@@ -1,13 +1,23 @@
-require 'rubygems'
+#require 'rubygems'
+#require 'bundler/setup'
 
-require 'combustion'
-require 'blacklight/engine'
-require 'blacklight/hierarchy/engine'
+ENV["RAILS_ENV"] ||= "test"
+
+require 'blacklight'
+require 'blacklight/hierarchy'
+
+require 'engine_cart'
+EngineCart.load_application!
+
+require 'coveralls'
+Coveralls.wear!
+
 require 'rsolr'
-require 'rsolr-ext'
-require 'rsolr-ext/response'
+#require 'rsolr-ext'
+#require 'rsolr-ext/response'
+require 'capybara/rails'
 require 'capybara/rspec'
-Combustion.initialize!
+require 'rspec/rails'
 
 
 # Setup blacklight environment
@@ -17,16 +27,16 @@ require 'vcr'
 
 VCR.configure do |config|
   config.hook_into :fakeweb
+#  config.hook_into :webmock
   config.cassette_library_dir = 'spec/vcr_cassettes'
+  config.configure_rspec_metadata!
   config.default_cassette_options = {
       :serialize_with => :psych 
   }
 end
 
-require 'rspec/rails'
-require 'capybara/rails'
 
 RSpec.configure do |config|
-  config.extend VCR::RSpec::Macros
-
+  config.infer_spec_type_from_file_location!
+  config.include Capybara::DSL
 end
