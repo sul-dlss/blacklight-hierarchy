@@ -54,7 +54,7 @@ describe "catalog" do
     expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n 1')
   end
 
-  it "should properly link the hierarchy" do
+  it "should properly link the hierarchy", :wip => true do
     visit '/'
     expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['n'] }))
     expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['a:b:c'] }))
