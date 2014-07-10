@@ -18,12 +18,8 @@ gem 'sass', '~> 3.2.0'
 gem 'bootstrap-sass', ">= 3.1.1.1"
 
 # load local rails test instance Gemfile (engine cart adds this automagically)
-#file = File.expand_path("Gemfile", ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path("../spec/internal", __FILE__))
-#if File.exists?(file)
-#  puts "Loading #{file} ..." if $DEBUG # `ruby -d` or `bundle -v`
-#  instance_eval File.read(file)
-#end
-
-if File.exists?('spec/test_app_templates/Gemfile.extra')
-  eval File.read('spec/test_app_templates/Gemfile.extra'), nil, 'spec/test_app_templates/Gemfile.extra'
+file = File.expand_path("Gemfile", ENV['ENGINE_CART_DESTINATION'] || ENV['RAILS_ROOT'] || File.expand_path("../spec/internal", __FILE__))
+if File.exists?(file)
+  puts "Loading #{file} ..." if $DEBUG # `ruby -d` or `bundle -v`
+  instance_eval File.read(file)
 end

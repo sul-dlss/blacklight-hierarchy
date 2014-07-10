@@ -1,5 +1,0 @@
-group :test do
-  gem 'generator_spec'
-end
-
-gem 'blacklight'

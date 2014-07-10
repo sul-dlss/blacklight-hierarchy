@@ -3,22 +3,18 @@
 
 ENV["RAILS_ENV"] ||= "test"
 
-require 'blacklight'
-require 'blacklight/hierarchy'
-
 require 'engine_cart'
 EngineCart.load_application!
 
 require 'coveralls'
 Coveralls.wear!
 
+require 'blacklight-hierarchy'
+
 require 'rsolr'
-#require 'rsolr-ext'
-#require 'rsolr-ext/response'
 require 'capybara/rails'
 require 'capybara/rspec'
 require 'rspec/rails'
-
 
 # Setup blacklight environment
 Blacklight.solr_config = { :url => 'http://127.0.0.1:8983/solr' }
