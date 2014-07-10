@@ -33,7 +33,6 @@ describe "catalog" do
                                       'facet_ranges' => {}
                                     }
                         }
-
     rsolr_client = double("rsolr_client")
     expect(rsolr_client).to receive(:send_and_receive).and_return @solr_facet_resp
     expect(RSolr).to receive(:connect).and_return rsolr_client
@@ -41,16 +40,18 @@ describe "catalog" do
   
   it "should display the hierarchy" do
     visit '/'
-#p page.source 
     expect(page).to have_selector('li.h-node', :text => 'a')
     expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'b')
-    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'c (30)')
-    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd (25)')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'c 30')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd 25')
     expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'c')
-    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd (5)')
-    expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n (1)')
-    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'q (25)')
-    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'x (5)')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd 5')
+    expect(page).to have_selector('li.h-node', :text => 'p')
+    expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'r')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'q 25')
+    expect(page).to have_selector('li.h-node', :text => 'x')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'y 5')
+    expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n 1')
   end
 
   it "should properly link the hierarchy" do
