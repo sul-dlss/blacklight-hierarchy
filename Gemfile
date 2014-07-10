@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-# Declare your gem's dependencies in blacklight-hierarchy-facets.gemspec.
+# Declare gem dependencies in blacklight-hierarchy-facets.gemspec.
 gemspec
 
 # Declare any dependencies that are still in development here instead of in

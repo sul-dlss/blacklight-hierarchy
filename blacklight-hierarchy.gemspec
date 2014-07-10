@@ -22,8 +22,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "engine_cart"
-  s.add_development_dependency "fakeweb"
   s.add_development_dependency "capybara"
-  s.add_development_dependency "vcr"
   s.add_development_dependency "coveralls"
 end
