@@ -42,22 +42,22 @@ describe "catalog" do
   it "should display the hierarchy" do
     visit '/'
 #p page.source 
-    page.should have_selector('li.h-node', :content => 'a')
-    page.should have_selector('li.h-node > ul > li.h-node', :content => 'b')
-    page.should have_selector('li.h-node li.h-leaf', :content => 'c (30)')
-    page.should have_selector('li.h-node li.h-leaf', :content => 'd (25)')
-    page.should have_selector('li.h-node > ul > li.h-node', :content => 'c')
-    page.should have_selector('li.h-node li.h-leaf', :content => 'd (5)')
-    page.should have_selector('.facet-hierarchy > li.h-leaf', :content => 'n (1)')
-    page.should have_selector('li.h-node li.h-leaf', :content => 'q (25)')
-    page.should have_selector('li.h-node li.h-leaf', :content => 'x (5)')
+    expect(page).to have_selector('li.h-node', :text => 'a')
+    expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'b')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'c (30)')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd (25)')
+    expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'c')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd (5)')
+    expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n (1)')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'q (25)')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'x (5)')
   end
 
   it "should properly link the hierarchy" do
     visit '/'
-    page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }.should include(catalog_index_path('f' => { 'tag_facet' => ['n'] }))
-    page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }.should include(catalog_index_path('f' => { 'tag_facet' => ['a:b:c'] }))
-    page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }.should include(catalog_index_path('f' => { 'tag_facet' => ['x:y'] }))
+    expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['n'] }))
+    expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['a:b:c'] }))
+    expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['x:y'] }))
   end
 end
 
