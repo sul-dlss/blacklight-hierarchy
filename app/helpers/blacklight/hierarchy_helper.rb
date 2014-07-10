@@ -104,13 +104,9 @@ def render_hierarchy(bl_facet_field)
   field_name = bl_facet_field.field
   prefix = field_name.split(/_/).first
   tree = facet_tree(prefix)[field_name]
-p "TREE:"
-p tree
   result = tree.keys.sort.collect do |key|
     render_facet_hierarchy_item(field_name, tree[key], key)
   end.join("\n").html_safe
-p "RENDERED TREE:"
-p result 
   result
 end
 
