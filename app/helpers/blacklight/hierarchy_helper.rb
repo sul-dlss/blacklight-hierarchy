@@ -92,12 +92,26 @@ def render_facet_hierarchy_item(field_name, data, key)
   %{<li class="#{li_class}">#{li.html_safe}#{ul.html_safe}</li>}.html_safe
 end
 
-def render_hierarchy(field)
-  prefix = field.field.split(/_/).first
-  tree = facet_tree(prefix)[field.field]
-  tree.keys.sort.collect do |key|
-    render_facet_hierarchy_item(field.field, tree[key], key)
+# FIXME:  the notion of underscores being part of the blacklight facet field names, 
+# and of _facet being the suffix of the Solr field name seems to be baked in.
+# This seems like a  BAAAAAD idea.
+# 
+# TODO:  document the rotate
+# 
+# TODO:  write specs for each non-trivial helper method (?)
+
+def render_hierarchy(bl_facet_field)
+  field_name = bl_facet_field.field
+  prefix = field_name.split(/_/).first
+  tree = facet_tree(prefix)[field_name]
+p "TREE:"
+p tree
+  result = tree.keys.sort.collect do |key|
+    render_facet_hierarchy_item(field_name, tree[key], key)
   end.join("\n").html_safe
+p "RENDERED TREE:"
+p result 
+  result
 end
 
 def render_qfacet_value(facet_solr_field, item, options ={})    

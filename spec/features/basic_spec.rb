@@ -2,13 +2,17 @@ require 'spec_helper'
 
 describe "catalog" do
 
+  # FIXME:  need to get css organized for engine_cart so the tests will pass.
+
   before(:each) do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|
+#      config.add_facet_field 'rotate_tag_facet', :label => 'Tag', :partial => 'blacklight/hierarchy/facet_hierarchy'
       config.add_facet_field 'tag_facet', :label => 'Tag', :partial => 'blacklight/hierarchy/facet_hierarchy'
       config.facet_display = {
         :hierarchy => {
-          'tag' => [nil]
+#          'rotate' => ['tag'], # this would work if config.add_facet_field was called rotate_tag_facet, instead of tag_facet, I think.  
+          'tag' => ['facet']  # stupidly, the facet field is expected to have an underscore followed by SOMETHING;  in this case it is "facet"
         }
       }
     end
