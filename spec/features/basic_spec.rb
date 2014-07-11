@@ -2,8 +2,6 @@ require 'spec_helper'
 
 describe "catalog" do
 
-  # FIXME:  need to get css organized for engine_cart so the tests will pass.
-
   before(:each) do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|
