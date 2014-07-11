@@ -92,22 +92,26 @@ def render_facet_hierarchy_item(field_name, data, key)
   %{<li class="#{li_class}">#{li.html_safe}#{ul.html_safe}</li>}.html_safe
 end
 
-# FIXME:  the notion of underscores being part of the blacklight facet field names, 
-# and of _facet being the suffix of the Solr field name seems to be baked in.
-# This seems like a  BAAAAAD idea.
-# 
 # TODO:  document the rotate
 # 
 # TODO:  write specs for each non-trivial helper method (?)
 
+# TODO: remove baked in notion of underscores being part of the blacklight facet field names, 
+# and of _facet being the suffix of the Solr field name seems to be baked in.
+# 
+# @param [Blacklight::Configuration::FacetField] as defined in controller with config.add_facet_field (and with :partial => 'blacklight/hierarchy/facet_hierarchy')
+# @return [String] html for the facet tree
 def render_hierarchy(bl_facet_field)
   field_name = bl_facet_field.field
   prefix = field_name.split(/_/).first
   tree = facet_tree(prefix)[field_name]
-  result = tree.keys.sort.collect do |key|
-    render_facet_hierarchy_item(field_name, tree[key], key)
-  end.join("\n").html_safe
-  result
+  if tree
+    result = tree.keys.sort.collect do |key|
+      render_facet_hierarchy_item(field_name, tree[key], key)
+    end.join("\n").html_safe
+  else
+    ""
+  end
 end
 
 def render_qfacet_value(facet_solr_field, item, options ={})    
@@ -122,27 +126,40 @@ def render_selected_qfacet_value(facet_solr_field, item)
   end
 
 HierarchicalFacetItem = Struct.new :qvalue, :value, :hits
-def facet_tree(prefix)
+# @param [String] hkey - a key to access the rest of the hierarchy tree, as defined in controller config.facet_display[:hierarchy] declaration.
+#  e.g. if you had this in controller:
+#   config.facet_display = {
+#     :hierarchy => {
+#       'wf' => [['wps','wsp','swp'], ':'],
+#       'callnum' => [['top_facet'], '/']
+#    }
+#  }
+# then possible hkey values would be 'wf' and 'callnum'
+def facet_tree(hkey)
   @facet_tree ||= {}
-  if @facet_tree[prefix].nil?
-    @facet_tree[prefix] = {}
-    blacklight_config.facet_display[:hierarchy][prefix].each { |key|
-      facet_field = [prefix,key].compact.join('_')
-      @facet_tree[prefix][facet_field] ||= {}
-      data = @response.facet_by_field_name(facet_field)
-      next if data.nil?
+  if blacklight_config.facet_display[:hierarchy] && blacklight_config.facet_display[:hierarchy][hkey] 
+    value_delim = blacklight_config.facet_display[:hierarchy][hkey].last
+    split_regex = Regexp.new("\s*#{value_delim}\s*")
+    if @facet_tree[hkey].nil?
+      @facet_tree[hkey] = {}
+      blacklight_config.facet_display[:hierarchy][hkey].first.each { |key|
+        facet_field = [hkey,key].compact.join('_')
+        @facet_tree[hkey][facet_field] ||= {}
+        data = @response.facet_by_field_name(facet_field)
+        next if data.nil?
 
-      data.items.each { |facet_item|
-        path = facet_item.value.split(/\s*:\s*/)
-        loc = @facet_tree[prefix][facet_field]
-        while path.length > 0
-          loc = loc[path.shift] ||= {}
-        end
-        loc[:_] = HierarchicalFacetItem.new(facet_item.value, facet_item.value.split(/\s*:\s*/).last, facet_item.hits)
+        data.items.each { |facet_item|
+          path = facet_item.value.split(split_regex)
+          loc = @facet_tree[hkey][facet_field]
+          while path.length > 0
+            loc = loc[path.shift] ||= {}
+          end
+          loc[:_] = HierarchicalFacetItem.new(facet_item.value, facet_item.value.split(split_regex).last, facet_item.hits)
+        }
       }
-    }
+    end
   end
-  @facet_tree[prefix]
+  @facet_tree[hkey]
 end
 
 end
