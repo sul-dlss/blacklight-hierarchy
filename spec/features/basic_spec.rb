@@ -32,9 +32,9 @@ describe "catalog" do
                                             'x:y', 5, 
                                             'n', 1 ],
                                         'my_top_facet' => [
-                                            'a/b/c', 30,
-                                            'x/y', 5, 
-                                            'n', 1 ], 
+                                            'f/g/h', 30,
+                                            'j/k', 5, 
+                                            'z', 1 ], 
                                        }, 
                                       'facet_dates' => {},
                                       'facet_ranges' => {}
@@ -69,43 +69,14 @@ describe "catalog" do
     expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['x:y'] }))
   end
 
-  it "should work with a different delimiter" do
-=begin
-    CatalogController.blacklight_config = Blacklight::Configuration.new
-    CatalogController.configure_blacklight do |config|
-      config.add_facet_field 'my_top_facet', :label => 'Slash Delim', :partial => 'blacklight/hierarchy/facet_hierarchy'
-      config.facet_display = {
-        :hierarchy => {
-          'my' => [['top_facet'], '/']
-        }
-      }
-    end
-=end
-=begin
-    solr_resp = {'responseHeader'=>{'status'=>0, 'QTime'=>4, 'params'=>{'wt'=>'ruby','rows'=>'0'}},
-                  'response'=>{'numFound'=>30, 'start'=>0, 'maxScore'=>1.0, 'docs' => []},
-                              'facet_counts' => {
-                                'facet_queries' => {},
-                                'facet_fields' => {
-                                  'my_top_facet' => [
-                                      'a/b/c', 30,
-                                      'x/y', 5, 
-                                      'n', 1 ] }, 
-                                'facet_dates' => {},
-                                'facet_ranges' => {}
-                              }
-                }
-    rsolr_client = double("rsolr_client")
-    expect(rsolr_client).to receive(:send_and_receive).and_return solr_resp
-    expect(RSolr).to receive(:connect).and_return rsolr_client
-=end
+  it "should work with a different value delimiter" do
     visit '/'
-    expect(page).to have_selector('li.h-node', :text => 'a')
-    expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'b')
-    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'c 30')
-    expect(page).to have_selector('li.h-node', :text => 'x')
-    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'y 5')
-    expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n 1')
+    expect(page).to have_selector('li.h-node', :text => 'f')
+    expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'g')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'h 30')
+    expect(page).to have_selector('li.h-node', :text => 'j')
+    expect(page).to have_selector('li.h-node li.h-leaf', :text => 'k 5')
+    expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'z 1')
   end
 
 end
