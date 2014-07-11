@@ -1,5 +1,6 @@
 module Blacklight::HierarchyHelper
 
+  # FIXME:  remove baked in underscore separator in field name
   def is_hierarchical?(field_name)
     (prefix,order) = field_name.split(/_/, 2)
     list = blacklight_config.facet_display[:hierarchy][prefix] and list.include?(order)
@@ -15,6 +16,7 @@ module Blacklight::HierarchyHelper
     orders[orders.index(order)+1] || orders.first
   end
 
+  # FIXME:  remove baked in underscore separator in field name
   def hide_facet?(field_name)
     if is_hierarchical?(field_name)
       prefix = field_name.split(/_/).first
@@ -24,6 +26,7 @@ module Blacklight::HierarchyHelper
     end
   end
 
+  # FIXME:  remove baked in colon separator
   def rotate_facet_value(val, from, to)
     components = Hash[from.split(//).zip(val.split(/:/))]
     new_values = components.values_at(*(to.split(//)))
@@ -37,6 +40,7 @@ module Blacklight::HierarchyHelper
     end
   end
 
+  # FIXME:  remove baked in underscore separator in field name
   def rotate_facet_params(prefix, from, to, p=params.dup)
     return p if from == to
     from_field = "#{prefix}_#{from}"
@@ -51,6 +55,7 @@ module Blacklight::HierarchyHelper
     p
   end
 
+  # FIXME:  remove baked in underscore separator in field name
   def render_facet_rotate(field_name)
     if is_hierarchical?(field_name)
       (prefix,order) = field_name.split(/_/, 2)
@@ -92,10 +97,6 @@ module Blacklight::HierarchyHelper
     %{<li class="#{li_class}">#{li.html_safe}#{ul.html_safe}</li>}.html_safe
   end
 
-  # TODO:  document the rotate
-  # 
-  # TODO:  write specs for each non-trivial helper method (?)
-
   # TODO: remove baked in notion of underscores being part of the blacklight facet field names, 
   # and of _facet being the suffix of the Solr field name seems to be baked in.
   # 
@@ -114,7 +115,7 @@ module Blacklight::HierarchyHelper
     end
   end
 
-  def render_qfacet_value(facet_solr_field, item, options ={})    
+  def render_qfacet_value(facet_solr_field, item, options ={})
     (link_to_unless(options[:suppress_link], item.value, add_facet_params(facet_solr_field, item.qvalue), :class=>"facet_select label") + " " + render_facet_count(item.hits)).html_safe
   end
 
@@ -126,6 +127,7 @@ module Blacklight::HierarchyHelper
     end
 
   HierarchicalFacetItem = Struct.new :qvalue, :value, :hits
+  
   # @param [String] hkey - a key to access the rest of the hierarchy tree, as defined in controller config.facet_display[:hierarchy] declaration.
   #  e.g. if you had this in controller:
   #   config.facet_display = {
