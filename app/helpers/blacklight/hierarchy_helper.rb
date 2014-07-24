@@ -141,7 +141,7 @@ module Blacklight::HierarchyHelper
     @facet_tree ||= {}
     if blacklight_config.facet_display[:hierarchy] && blacklight_config.facet_display[:hierarchy][hkey] 
       value_delim = blacklight_config.facet_display[:hierarchy][hkey].last
-      split_regex = Regexp.new("\s*#{value_delim}\s*")
+      split_regex = Regexp.new("\s*#{Regexp.escape(value_delim)}\s*")
       if @facet_tree[hkey].nil?
         @facet_tree[hkey] = {}
         blacklight_config.facet_display[:hierarchy][hkey].first.each { |key|
