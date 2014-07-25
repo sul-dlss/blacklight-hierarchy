@@ -46,44 +46,43 @@ describe "catalog" do
       expect(RSolr).to receive(:connect).and_return rsolr_client
     }
 
-      it "should display the hierarchy" do
-        visit '/'
-        expect(page).to have_selector('li.h-node', :text => 'a')
-        expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'b')
-        expect(page).to have_selector('li.h-node li.h-leaf', :text => 'c 30')
-        expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd 25')
-        expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'c')
-        expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd 5')
-        expect(page).to have_selector('li.h-node', :text => 'p')
-        expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'r')
-        expect(page).to have_selector('li.h-node li.h-leaf', :text => 'q 25')
-        expect(page).to have_selector('li.h-node', :text => 'x')
-        expect(page).to have_selector('li.h-node li.h-leaf', :text => 'y 5')
-        expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n 1')
-      end
+    it "should display the hierarchy" do
+      visit '/'
+      expect(page).to have_selector('li.h-node', :text => 'a')
+      expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'b')
+      expect(page).to have_selector('li.h-node li.h-leaf', :text => 'c 30')
+      expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd 25')
+      expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'c')
+      expect(page).to have_selector('li.h-node li.h-leaf', :text => 'd 5')
+      expect(page).to have_selector('li.h-node', :text => 'p')
+      expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'r')
+      expect(page).to have_selector('li.h-node li.h-leaf', :text => 'q 25')
+      expect(page).to have_selector('li.h-node', :text => 'x')
+      expect(page).to have_selector('li.h-node li.h-leaf', :text => 'y 5')
+      expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n 1')
+    end
 
-      it "should properly link the hierarchy", :wip => true do
-        visit '/'
-    #    visit catalog_index_path
-        expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['n'] }))
-        expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['a:b:c'] }))
-        expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['x:y'] }))
-      end
+    it "should properly link the hierarchy", :wip => true do
+      visit '/'
+  #    visit catalog_index_path
+      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['n'] }))
+      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['a:b:c'] }))
+      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['x:y'] }))
+    end
 
-      it "should work with a different value delimiter" do
-        visit '/'
-        expect(page).to have_selector('li.h-node', :text => 'f')
-        expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'g')
-        expect(page).to have_selector('li.h-node li.h-leaf', :text => 'h 30')
-        expect(page).to have_selector('li.h-node', :text => 'j')
-        expect(page).to have_selector('li.h-node li.h-leaf', :text => 'k 5')
-        expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'z 1')
-      end
-    
+    it "should work with a different value delimiter" do
+      visit '/'
+      expect(page).to have_selector('li.h-node', :text => 'f')
+      expect(page).to have_selector('li.h-node > ul > li.h-node', :text => 'g')
+      expect(page).to have_selector('li.h-node li.h-leaf', :text => 'h 30')
+      expect(page).to have_selector('li.h-node', :text => 'j')
+      expect(page).to have_selector('li.h-node li.h-leaf', :text => 'k 5')
+      expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'z 1')
+    end
   end # facet tree without repeated nodes
   
   context "facet tree with repeated nodes" do
-    before(:each) do
+    before do
       facet_resp = {'responseHeader'=>{'status'=>0, 'QTime'=>4, 'params'=>{'wt'=>'ruby','rows'=>'0'}},
                           'response'=>{'numFound'=>30, 'start'=>0, 'maxScore'=>1.0, 'docs' => []},
                                       'facet_counts' => {
@@ -96,7 +95,7 @@ describe "catalog" do
                                         'facet_dates' => {},
                                         'facet_ranges' => {}
                                       }
-                          }
+                    }
       my_rsolr_client = double("rsolr_client")
       expect(my_rsolr_client).to receive(:send_and_receive).and_return facet_resp
       expect(RSolr).to receive(:connect).and_return my_rsolr_client
