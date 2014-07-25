@@ -76,6 +76,7 @@ module Blacklight::HierarchyHelper
       if @facet_tree[hkey].nil?
         @facet_tree[hkey] = {}
         blacklight_config.facet_display[:hierarchy][hkey].first.each { |key|
+          # TODO: remove baked in notion of underscores being part of the blacklight facet field names
           facet_field = [hkey,key].compact.join('_')
           @facet_tree[hkey][facet_field] ||= {}
           data = @response.facet_by_field_name(facet_field)
@@ -95,7 +96,9 @@ module Blacklight::HierarchyHelper
     @facet_tree[hkey]
   end
 
-  # below are methods pertaining to the "rotate" notion where you may want to look at the same tree data organized another way
+# --------------------------------------------------------------------------------------------------------------------------------  
+# below are methods pertaining to the "rotate" notion where you may want to look at the same tree data organized another way
+# --------------------------------------------------------------------------------------------------------------------------------  
   
   # FIXME:  remove baked in underscore separator in field name
   def is_hierarchical?(field_name)
