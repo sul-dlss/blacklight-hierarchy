@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "catalog" do
 
-  before(:each) do
+  before do
     CatalogController.blacklight_config = Blacklight::Configuration.new
     CatalogController.configure_blacklight do |config|
 #      config.add_facet_field 'rotate_tag_facet', :label => 'Tag', :partial => 'blacklight/hierarchy/facet_hierarchy'
