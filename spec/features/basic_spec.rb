@@ -12,7 +12,7 @@ describe "catalog" do
         :hierarchy => {
 #          'rotate' => [['tag'], ':'], # this would work if config.add_facet_field was called rotate_tag_facet, instead of tag_facet, I think.  
           'tag' => [['facet'], ':'],  # stupidly, the facet field is expected to have an underscore followed by SOMETHING;  in this case it is "facet"
-          'my' => [['top_facet'], '/']
+          'my_top' => [['facet'], '/']
         }
       }
     end

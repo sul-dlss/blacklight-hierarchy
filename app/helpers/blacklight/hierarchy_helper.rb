@@ -6,7 +6,7 @@ module Blacklight::HierarchyHelper
   def render_facet_hierarchy_item(field_name, data, key)
     item = data[:_]
     subset = data.reject { |k,v| ! k.is_a?(String) }
-  
+
     li_class = subset.empty? ? 'h-leaf' : 'h-node'
     li = ul = ''
   
@@ -35,7 +35,7 @@ module Blacklight::HierarchyHelper
   # @return [String] html for the facet tree
   def render_hierarchy(bl_facet_field)
     field_name = bl_facet_field.field
-    prefix = field_name.split(/_/).first
+    prefix = field_name.gsub("_#{field_name.split(/_/).last}", '')
     tree = facet_tree(prefix)[field_name]
     if tree
       result = tree.keys.sort.collect do |key|
@@ -53,7 +53,7 @@ module Blacklight::HierarchyHelper
   # Standard display of a SELECTED facet value, no link, special span
   # with class, and 'remove' button.
   def render_selected_qfacet_value(facet_solr_field, item)
-    content_tag(:span, render_qfacet_value(facet_solr_field, item, :suppress_link => true), :class => "selected") +
+    content_tag(:span, render_qfacet_value(facet_solr_field, item, :suppress_link => true), :class => "selected") + " " +
       link_to("[remove]", remove_facet_params(facet_solr_field, item.qvalue, params), :class=>"remove")
     end
 
