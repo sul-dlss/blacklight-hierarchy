@@ -1,4 +1,4 @@
-source "http://rubygems.org"
+source "https://rubygems.org"
 
 # Declare gem dependencies in blacklight-hierarchy-facets.gemspec.
 gemspec
