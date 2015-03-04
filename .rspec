@@ -1,1 +1,4 @@
 --color
+--format progress
+--require ./spec/spec_helper.rb
+--tag ~wip
