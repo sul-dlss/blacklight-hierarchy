@@ -1,22 +1,6 @@
 require 'spec_helper'
 
-describe "catalog" do
-
-  before do
-    CatalogController.blacklight_config = Blacklight::Configuration.new
-    CatalogController.configure_blacklight do |config|
-#      config.add_facet_field 'rotate_tag_facet', :label => 'Tag', :partial => 'blacklight/hierarchy/facet_hierarchy'
-      config.add_facet_field 'tag_facet', :label => 'Tag', :partial => 'blacklight/hierarchy/facet_hierarchy'
-      config.add_facet_field 'my_top_facet', :label => 'Slash Delim', :partial => 'blacklight/hierarchy/facet_hierarchy'
-      config.facet_display = {
-        :hierarchy => {
-#          'rotate' => [['tag'], ':'], # this would work if config.add_facet_field was called rotate_tag_facet, instead of tag_facet, I think.  
-          'tag' => [['facet'], ':'],  # stupidly, the facet field is expected to have an underscore followed by SOMETHING;  in this case it is "facet"
-          'my_top' => [['facet'], '/']
-        }
-      }
-    end
-  end
+shared_examples "catalog" do
 
   context "facet tree without repeated nodes" do
     before {
@@ -27,16 +11,16 @@ describe "catalog" do
                                         'facet_fields' => {
                                           'tag_facet' => [
                                               'a:b:c', 30,
-                                              'a:b:d', 25, 
-                                              'a:c:d', 5, 
-                                              'p:r:q', 25, 
-                                              'x:y', 5, 
+                                              'a:b:d', 25,
+                                              'a:c:d', 5,
+                                              'p:r:q', 25,
+                                              'x:y', 5,
                                               'n', 1 ],
                                           'my_top_facet' => [
                                               'f/g/h', 30,
-                                              'j/k', 5, 
-                                              'z', 1 ], 
-                                         }, 
+                                              'j/k', 5,
+                                              'z', 1 ],
+                                         },
                                         'facet_dates' => {},
                                         'facet_ranges' => {}
                                       }
@@ -80,7 +64,7 @@ describe "catalog" do
       expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'z 1')
     end
   end # facet tree without repeated nodes
-  
+
   context "facet tree with repeated nodes" do
     before do
       facet_resp = {'responseHeader'=>{'status'=>0, 'QTime'=>4, 'params'=>{'wt'=>'ruby','rows'=>'0'}},
@@ -91,7 +75,7 @@ describe "catalog" do
                                           'tag_facet' => [
                                               'm:w:w:t', 15,
                                               'm:w:v:z', 10],
-                                         }, 
+                                         },
                                         'facet_dates' => {},
                                         'facet_ranges' => {}
                                       }
@@ -111,4 +95,42 @@ describe "catalog" do
     end
   end
 
+end
+
+describe "config_1" do
+  it_behaves_like "catalog" do
+    before do
+      CatalogController.blacklight_config = Blacklight::Configuration.new
+      CatalogController.configure_blacklight do |config|
+    #   config.add_facet_field 'rotate_tag_facet', :label => 'Tag',     :partial => 'blacklight/hierarchy/facet_hierarchy'
+        config.add_facet_field 'tag_facet',    :label => 'Tag',         :partial => 'blacklight/hierarchy/facet_hierarchy'
+        config.add_facet_field 'my_top_facet', :label => 'Slash Delim', :partial => 'blacklight/hierarchy/facet_hierarchy'
+        config.facet_display = {
+          :hierarchy => {
+    #       'rotate' => [['tag'  ], ':'], # this would work if config.add_facet_field was called rotate_tag_facet, instead of tag_facet, I think.
+            'tag'    => [['facet'], ':'],  # stupidly, the facet field is expected to have an underscore followed by SOMETHING;  in this case it is "facet"
+            'my_top' => [['facet'], '/']
+          }
+        }
+      end
+    end
+  end
+end
+
+describe "config_2" do
+  it_behaves_like "catalog" do
+    before do
+      CatalogController.blacklight_config = Blacklight::Configuration.new
+      CatalogController.configure_blacklight do |config|
+        config.add_facet_field 'tag_facet',    :label => 'Tag',         :partial => 'blacklight/hierarchy/facet_hierarchy'
+        config.add_facet_field 'my_top_facet', :label => 'Slash Delim', :partial => 'blacklight/hierarchy/facet_hierarchy'
+        config.facet_display = {
+          :hierarchy => {
+            'tag'    => [['facet']],      # rely on default delim
+            'my_top' => [['facet'], '/']
+          }
+        }
+      end
+    end
+  end
 end
