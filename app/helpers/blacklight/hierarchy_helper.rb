@@ -35,7 +35,7 @@ module Blacklight::HierarchyHelper
   def render_hierarchy(bl_facet_field, delim='_')
     field_name = bl_facet_field.field
     prefix = field_name.gsub("#{delim}#{field_name.split(/#{delim}/).last}", '')
-    tree = facet_tree(prefix)[field_name]
+    tree = facet_tree(prefix) ? facet_tree(prefix)[field_name] : nil
     return '' unless tree
     tree.keys.sort.collect do |key|
       render_facet_hierarchy_item(field_name, tree[key], key)
