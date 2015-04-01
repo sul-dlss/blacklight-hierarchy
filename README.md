@@ -8,7 +8,6 @@ This plugin provides hierarchical facets for [Blacklight](https://github.com/pro
 Add the plugin to your Blacklight app's Gemfile
 
     gem 'blacklight-hierarchy'
-    #gem 'blacklight-hierarchy', :git => 'git@github.com:sul-dlss/blacklight-hierarchy.git'
         
 Index your hierarchies in colon-separated list. For example, items in a "processing" queue with a "copy" action, might be indexed as
 
@@ -46,15 +45,16 @@ In your Blacklight controller configuration (usually `CatalogController`), tell 
     config.add_facet_field 'queue_status_facet', :label => 'Queue Status', 
         :partial => 'blacklight/hierarchy/facet_hierarchy'
     
-Add the hierarchy-specific options to the controller configuration 
+Add the hierarchy-specific options to the controller configuration (values are arrays: 1st element is array, 2nd is delimiter string):
 
     config.facet_display = {
       :hierarchy => {
-        'tag' => [nil]
+        'wf' => [['wps','wsp','swp'], ':'],
+		'callnum' => [['top_facet'], '/']
       }
     }
 
-(The `[nil]` value is present in support of rotatable facet hierarchies, which I don't have time to document right now.)
+Note that the delimiter MUST be specified at the present time, and MUST be the acual delimited used in the Solr field value.
 
 ## Caveats
 
