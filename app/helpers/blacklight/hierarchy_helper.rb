@@ -74,6 +74,7 @@ module Blacklight::HierarchyHelper
   #  hash above.  ':' would be the delimiter used in all of those fields except for 'callnum_top_facet', which would 
   #  use '/'.  exploded_tag_ssim might contain values like ['Book', 'Book : Multi-Volume Work'], and callnum_top_facet 
   #  might contain values like ['LB', 'LB/2395', 'LB/2395/.C65', 'LB/2395/.C65/1991'].
+  # note: the suffixes (e.g. 'ssim' for 'exploded_tag' in the above example) can't have underscores, otherwise things break.
   def facet_tree(hkey)
     @facet_tree ||= {}
     return @facet_tree[hkey] unless @facet_tree[hkey].nil?
