@@ -45,16 +45,16 @@ In your Blacklight controller configuration (usually `CatalogController`), tell 
 
     config.add_facet_field 'queue_status_facet', :label => 'Queue Status', 
         :partial => 'blacklight/hierarchy/facet_hierarchy'
-    
-Add the hierarchy-specific options to the controller configuration 
+
+
+Add the hierarchy-specific options to the controller configuration (see the facet_tree method for further explanation and some relevant code, as well as the render_hierarchy method for relevant code)
 
     config.facet_display = {
       :hierarchy => {
-        'tag' => [nil]
+        'queue_status' => [['facet'], ':']
       }
     }
 
-(The `[nil]` value is present in support of rotatable facet hierarchies, which I don't have time to document right now.)
 
 ## Caveats
 
