@@ -28,16 +28,16 @@ module Blacklight::HierarchyHelper
     %{<li class="#{li_class}">#{li.html_safe}#{ul.html_safe}</li>}.html_safe
   end
 
-  # TODO: remove baked in notion of _facet being the suffix of the Solr field name
-  #
   # @param [Blacklight::Configuration::FacetField] as defined in controller with config.add_facet_field (and with :partial => 'blacklight/hierarchy/facet_hierarchy')
   # @return [String] html for the facet tree
   def render_hierarchy(bl_facet_field, delim='_')
     field_name = bl_facet_field.field
     prefix = field_name.gsub("#{delim}#{field_name.split(/#{delim}/).last}", '')
+
     facet_tree_for_prefix = facet_tree(prefix)
     tree = facet_tree_for_prefix ? facet_tree_for_prefix[field_name] : nil
     return '' unless tree
+
     tree.keys.sort.collect do |key|
       render_facet_hierarchy_item(field_name, tree[key], key)
     end.join("\n").html_safe
@@ -60,10 +60,20 @@ module Blacklight::HierarchyHelper
   #   config.facet_display = {
   #     :hierarchy => {
   #       'wf' => [['wps','wsp','swp'], ':'],
-  #       'callnum' => [['top_facet'], '/']
+  #       'callnum_top' => [['facet'], '/'],
+  #       'exploded_tag' => [['ssim'], ':']
   #    }
   #  }
-  # then possible hkey values would be 'wf' and 'callnum'
+  # then possible hkey values would be 'wf' and 'callnum'.
+  #
+  # the key in the :hierarchy hash is the "prefix" for the solr field with the hierarchy info.  the value
+  #  in the hash is a list, where the first element is a list of suffixes, and the second element is the delimiter
+  #  used to break up the sections of hierarchical data in the solr field being read.  when joined, the prefix and 
+  #  suffix should form the field name.  so, for example, 'wf_wps', 'wf_wsp', 'wf_swp', 'callnum_top_facet', and
+  #  'exploded_tag_ssim' would be the solr fields with blacklight-hierarchy related configuration according to the 
+  #  hash above.  ':' would be the delimiter used in all of those fields except for 'callnum_top_facet', which would 
+  #  use '/'.  exploded_tag_ssim might contain values like ['Book', 'Book : Multi-Volume Work'], and callnum_top_facet 
+  #  might contain values like ['LB', 'LB/2395', 'LB/2395/.C65', 'LB/2395/.C65/1991'].
   def facet_tree(hkey)
     @facet_tree ||= {}
     return @facet_tree[hkey] unless @facet_tree[hkey].nil?
