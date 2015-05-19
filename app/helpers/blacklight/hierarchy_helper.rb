@@ -64,7 +64,7 @@ module Blacklight::HierarchyHelper
   #       'exploded_tag' => [['ssim'], ':']
   #    }
   #  }
-  # then possible hkey values would be 'wf' and 'callnum'.
+  # then possible hkey values would be 'wf', 'callnum_top', and 'exploded_tag'.
   #
   # the key in the :hierarchy hash is the "prefix" for the solr field with the hierarchy info.  the value
   #  in the hash is a list, where the first element is a list of suffixes, and the second element is the delimiter
