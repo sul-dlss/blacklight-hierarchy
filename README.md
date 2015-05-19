@@ -55,7 +55,7 @@ Add the hierarchy-specific options to the controller configuration
       }
     }
 
-In the above configuration, 'queue_status_facet' is the full Solr field name, and ':' is the delimiter within the field.  Note that suffixes (like 'facet' in the above example) should *not* contain underscores, since the methods that deal with the Solr fields and match them to the config assume the "prefix" ('queue_status' in the above example) will be everything up to the last underscore in the field name.  See the facet_tree method for further explanation and some relevant code, as well as the render_hierarchy method for relevant code.
+In the above configuration, 'queue_status_facet' is the full Solr field name, and ':' is the delimiter within the field.  Note that suffixes ('facet' in the above example) should not contain underscores, since the methods that deal with the Solr fields and match them to the config assume the "prefix" ('queue_status' in the above example) will be everything up to the last underscore in the field name.  See the facet_tree method for further explanation and some relevant code, as well as the render_hierarchy method for relevant code.
 
 ## Caveats
 
