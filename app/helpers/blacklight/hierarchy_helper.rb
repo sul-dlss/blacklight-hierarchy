@@ -44,7 +44,7 @@ module Blacklight::HierarchyHelper
   end
 
   def render_qfacet_value(facet_solr_field, item, options ={})
-    (link_to_unless(options[:suppress_link], item.value, add_facet_params(facet_solr_field, item.qvalue), :class=>"facet_select") + " " + render_facet_count(item.hits)).html_safe
+    (link_to_unless(options[:suppress_link], item.value, search_state.add_facet_params(facet_solr_field, item.qvalue), :class=>"facet_select") + " " + render_facet_count(item.hits)).html_safe
   end
 
   # Standard display of a SELECTED facet value, no link, special span with class, and 'remove' button.
@@ -86,7 +86,7 @@ module Blacklight::HierarchyHelper
       # TODO: remove baked in notion of underscores being part of the blacklight facet field names
       facet_field = [hkey,key].compact.join('_')
       @facet_tree[hkey][facet_field] ||= {}
-      data = @response.facet_by_field_name(facet_field)
+      data = @response.aggregations[facet_field]
       next if data.nil?
 
       data.items.each { |facet_item|

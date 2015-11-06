@@ -46,12 +46,11 @@ shared_examples "catalog" do
       expect(page).to have_selector('.facet-hierarchy > li.h-leaf', :text => 'n 1')
     end
 
-    it "should properly link the hierarchy", :wip => true do
+    it "should properly link the hierarchy" do
       visit '/'
-  #    visit catalog_index_path
-      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['n'] }))
-      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['a:b:c'] }))
-      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(catalog_index_path('f' => { 'tag_facet' => ['x:y'] }))
+      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(root_path('f' => { 'tag_facet' => ['n'] }))
+      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(root_path('f' => { 'tag_facet' => ['a:b:c'] }))
+      expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(root_path('f' => { 'tag_facet' => ['x:y'] }))
     end
 
     it "should work with a different value delimiter" do

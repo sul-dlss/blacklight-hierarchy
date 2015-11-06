@@ -10,6 +10,7 @@ require 'coveralls'
 Coveralls.wear!
 
 require 'blacklight-hierarchy'
+require 'rsolr'
 
 require 'rspec/rails'
 
