@@ -1,8 +1,6 @@
 require 'rails/generators'
 
 class TestAppGenerator < Rails::Generators::Base
-  source_root File.expand_path("../../../../test_app_templates", __FILE__)
-
   def add_gems
     gem 'blacklight'
     Bundler.with_clean_env do
