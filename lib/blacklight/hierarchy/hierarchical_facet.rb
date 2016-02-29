@@ -53,10 +53,10 @@ module Blacklight
 
       def keys(prefix = nil)
         if prefix.nil?
-          facet_data.collect { |k, v| k.split(delimiter).first }.uniq
+          facet_data.collect { |k, _v| k.split(delimiter).first }.uniq
         else
           path = prefix.to_s.split(delimiter)
-          facet_data.collect do |k, v|
+          facet_data.collect do |k, _v|
             facet_path = k.split(delimiter)
             facet_path[0..path.length - 1] == path ? facet_path[path.length] : nil
           end.compact.uniq
