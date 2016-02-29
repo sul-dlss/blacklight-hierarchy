@@ -3,28 +3,34 @@
 
 This plugin provides hierarchical facets for [Blacklight](https://github.com/projectblacklight/blacklight).
 
+Please note this is does not directly follow any of the competing approaches of [Hierarchical Facets in Solr](http://wiki.apache.org/solr/HierarchicalFaceting), including Solr PivotFacets.
+
 ## Usage
 
-Add the plugin to your Blacklight app's Gemfile
+Add the plugin to your Blacklight app's Gemfile.
 
-    gem 'blacklight-hierarchy'
-        
-Index your hierarchies in colon-separated list. For example, items in a "processing" queue with a "copy" action, might be indexed as
+```ruby
+gem 'blacklight-hierarchy'
+```
 
-    <doc>
-      <field name="id">foo</field>
-      <field name="queue_status_facet">processing</field>
-      <field name="queue_status_facet">processing:copy</field>
-      <field name="queue_status_facet">processing:copy:waiting</field>
-    </doc>
-    <doc>
-      <field name="id">bar</field>
-      <field name="queue_status_facet">processing</field>
-      <field name="queue_status_facet">processing:copy</field>
-      <field name="queue_status_facet">processing:copy:completed</field>
-    </doc>
-        
-That would cause the facet count to appear at all three levels
+Index your hierarchies in a (colon-)separated list. For example, items in a "processing" queue with a "copy" action, might be indexed as:
+
+```xml
+<doc>
+  <field name="id">foo</field>
+  <field name="queue_status_facet">processing</field>
+  <field name="queue_status_facet">processing:copy</field>
+  <field name="queue_status_facet">processing:copy:waiting</field>
+</doc>
+<doc>
+  <field name="id">bar</field>
+  <field name="queue_status_facet">processing</field>
+  <field name="queue_status_facet">processing:copy</field>
+  <field name="queue_status_facet">processing:copy:completed</field>
+</doc>
+```
+
+That would cause the facet count to appear at all three levels:
 
 - [processing](#) (2)
     - [copy](#) (2)
@@ -38,23 +44,44 @@ You can skip as many levels as you'd like, as long as the "leaf" values are inde
         - [completed](#) (1)
         - [waiting](#) (1)
 
-(**Note**: If you use Solr's built-in [PathHierarchyTokenizerFactory](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.PathHierarchyTokenizerFactory), you can index the entire depth by supplying only the leaf nodes.)
+**Note**: If you use Solr's built-in [PathHierarchyTokenizerFactory](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.PathHierarchyTokenizerFactory), you can index the entire depth by supplying only the leaf nodes.  Otherwise you are expected to build the permutations yourself before loading.
 
-In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial
-
-    config.add_facet_field 'queue_status_facet', :label => 'Queue Status', 
-        :partial => 'blacklight/hierarchy/facet_hierarchy'
+In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial.
 
 
-Add the hierarchy-specific options to the controller configuration
+```ruby
+config.add_facet_field 'queue_wps',   :label => 'Queue Status', :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'queue_wsp',   :label => 'Queue Status', :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'queue_swp',   :label => 'Queue Status', :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'callnum_top', :label => 'Callnumber',   :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'foo_trunk',   :label => 'Foo L1',       :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'foo_branch',  :label => 'Foo L2',       :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'foo_leaves',  :label => 'Foo L3',       :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'tag_facet',   :label => 'Tag',          :partial => 'blacklight/hierarchy/facet_hierarchy'
+```
 
-    config.facet_display = {
-      :hierarchy => {
-        'queue_status' => [['facet'], ':']
-      }
-    }
+Add your hierarchy-specific options to the controller configuration:
+
+```ruby
+config.facet_display = {
+  :hierarchy => {
+    'queue'   => [['wps','wsp','swp'], ':'],       # values are arrays: 1st element is array, 2nd is delimiter string
+    'callnum' => [['top'], '/'],
+    'foo'     => [['trunk', 'branch', 'leaves']],  # implied default delimiter
+    'tag'     => [[nil]]                           # TODO: explain
+  }
+}
+```
 
 In the above configuration, 'queue_status_facet' is the full Solr field name, and ':' is the delimiter within the field.  Note that suffixes ('facet' in the above example) should not contain underscores, since the methods that deal with the Solr fields and match them to the config assume the "prefix" ('queue_status' in the above example) will be everything up to the last underscore in the field name.  See the facet_tree method for further explanation and some relevant code, as well as the render_hierarchy method for relevant code.
+
+The `[nil]` value is present in support of rotatable facet hierarchies, a totally undocumented feature.
+
+Facet fields should be added for each permutation of hierarchy key and term values, joined by **_**.  Or, the output of:
+
+```ruby
+config.facet_display[:hierarchy].each{ |k,v| puts "#{k}_#{v}" }
+```
 
 ## Caveats
 
@@ -65,3 +92,4 @@ This code was ripped out of another project, and is still quite immature as a st
 - WRITE TESTS
 - Switch internal facet management from hack-y Hash to `Blacklight::Hierarchy::FacetGroup` class (already implemented, but not plumbed up)
 - Add configuration support for hierarchy delimiters other than `/\s*:\s*/` (baked into `Blacklight::Hierarchy::FacetGroup`, but again, requiring additional plumbing)
+- Clarify when suffix is applied/required/etc.
