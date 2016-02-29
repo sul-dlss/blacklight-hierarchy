@@ -11,3 +11,4 @@ tmp
 coverage
 pkg
 .bundle
+.internal_test_app

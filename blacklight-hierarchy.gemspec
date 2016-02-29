@@ -1,6 +1,6 @@
-$:.push File.expand_path("../lib", __FILE__)
-
-require File.join(File.dirname(__FILE__), "lib/blacklight/hierarchy/version")
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'blacklight/hierarchy/version'
 
 Gem::Specification.new do |s|
   s.name        = "blacklight-hierarchy"
@@ -12,16 +12,20 @@ Gem::Specification.new do |s|
   s.summary     = "Hierarchical Facets for Blacklight"
   s.description = "Allows delimited Solr facets to become hierarchical trees in Blacklight."
 
-  s.files         = Dir["{app,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.md"]
-  s.test_files    = Dir["{spec,test}/**/*"]
-  s.require_paths = ['lib']
+  s.files         = `git ls-files -z`.split("\x0")
+  s.test_files    = s.files.grep(%r{^(test|spec|features)/})
+  s.bindir        = 'exe'
+  s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  s.require_paths = ["lib"]
 
   s.add_dependency "rails", '~> 4.1'
-  s.add_dependency "blacklight", "~> 5", "< 6"
+  s.add_dependency "jquery-rails"
+  s.add_dependency "blacklight", ">= 6.0.0.pre3", "< 7"
   
+  s.add_development_dependency "rsolr"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "sqlite3"
-  s.add_development_dependency "engine_cart"
+  s.add_development_dependency "engine_cart", '~> 0.8'
   s.add_development_dependency "capybara"
   s.add_development_dependency "coveralls"
 end

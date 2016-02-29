@@ -1,4 +1,5 @@
 require 'blacklight'
+require 'rails'
 
 module Blacklight
   module Hierarchy
