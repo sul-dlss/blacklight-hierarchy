@@ -4,17 +4,17 @@ class TestAppGenerator < Rails::Generators::Base
   def add_gems
     gem 'blacklight'
     Bundler.with_clean_env do
-      run "bundle install"
+      run 'bundle install'
     end
   end
 
   # This is only necessary for Rails 3
   def remove_index
-    remove_file "public/index.html"
+    remove_file 'public/index.html'
   end
 
   def run_blacklight_generator
-    say_status("warning", "GENERATING BL", :yellow)
+    say_status('warning', 'GENERATING BL', :yellow)
 
     generate 'blacklight:install'
   end
@@ -22,5 +22,4 @@ class TestAppGenerator < Rails::Generators::Base
   def run_hierarchy_install
     generate 'blacklight_hierarchy:install'
   end
-
 end

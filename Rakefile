@@ -9,20 +9,18 @@ end
 require 'engine_cart/rake_task'
 TEST_APP_TEMPLATES = 'spec/test_app_templates'
 TEST_APP = 'spec/internal'
-#ZIP_URL = "https://github.com/projectblacklight/blacklight-jetty/archive/v4.0.0.zip"
-APP_ROOT = File.expand_path("..", __FILE__)
+# ZIP_URL = "https://github.com/projectblacklight/blacklight-jetty/archive/v4.0.0.zip"
+APP_ROOT = File.expand_path('..', __FILE__)
 
 task :default => :ci
 
-
 require 'rspec/core/rake_task'
 
-desc "Run specs"
+desc 'Run specs'
 RSpec::Core::RakeTask.new(:rspec)
 task :spec => :rspec
 
-
-desc "Execute Continuous Integration Build"
+desc 'Execute Continuous Integration Build'
 task :ci => ['engine_cart:clean', 'engine_cart:generate', 'rspec']
 
 begin
@@ -33,7 +31,7 @@ rescue LoadError
   RDoc::Task = Rake::RDocTask
 end
 
-desc "Create rdoc"
+desc 'Create rdoc'
 RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Blacklight::Hierarchy'

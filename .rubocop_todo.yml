@@ -51,14 +51,6 @@ Style/AlignHash:
   Exclude:
     - 'spec/features/basic_spec.rb'
 
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: always, conditionals
-Style/AndOr:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
-
 # Offense count: 3
 # Cop supports --auto-correct.
 # Configuration parameters: EnforcedStyle, SupportedStyles, ProceduralMethods, FunctionalMethods, IgnoredMethods.
@@ -78,13 +70,6 @@ Style/ClassAndModuleChildren:
   Exclude:
     - 'app/helpers/blacklight/hierarchy_helper.rb'
 
-# Offense count: 3
-# Cop supports --auto-correct.
-Style/CommentIndentation:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
-    - 'spec/features/basic_spec.rb'
-
 # Offense count: 1
 # Cop supports --auto-correct.
 # Configuration parameters: SingleLineConditionsOnly.
@@ -101,36 +86,6 @@ Style/Documentation:
     - 'lib/blacklight/hierarchy.rb'
     - 'lib/blacklight/hierarchy/hierarchical_facet.rb'
     - 'lib/generators/blacklight_hierarchy/install_generator.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-Style/EmptyLines:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundBlockBody:
-  Exclude:
-    - 'spec/features/basic_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundClassBody:
-  Exclude:
-    - 'spec/test_app_templates/lib/generators/test_app_generator.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: empty_lines, no_empty_lines
-Style/EmptyLinesAroundModuleBody:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
 
 # Offense count: 3
 # Cop supports --auto-correct.
@@ -167,19 +122,6 @@ Style/IndentArray:
 Style/IndentHash:
   EnforcedStyle: consistent
 
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/LeadingCommentSpace:
-  Exclude:
-    - 'Rakefile'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: require_parentheses, require_no_parentheses, require_no_parentheses_except_multiline
-Style/MethodDefParentheses:
-  Enabled: false
-
 # Offense count: 3
 # Cop supports --auto-correct.
 Style/MutableConstant:
@@ -205,46 +147,10 @@ Style/PredicateName:
 
 # Offense count: 1
 # Cop supports --auto-correct.
-Style/RedundantParentheses:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
 # Configuration parameters: AllowAsExpressionSeparator.
 Style/Semicolon:
   Exclude:
     - 'app/helpers/blacklight/hierarchy_helper.rb'
-
-# Offense count: 14
-# Cop supports --auto-correct.
-Style/SpaceAfterComma:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
-    - 'lib/blacklight/hierarchy/hierarchical_facet.rb'
-    - 'spec/features/basic_spec.rb'
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/SpaceAfterNot:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
-
-# Offense count: 6
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: space, no_space
-Style/SpaceAroundEqualsInParameterDefault:
-  Enabled: false
-
-# Offense count: 25
-# Cop supports --auto-correct.
-# Configuration parameters: AllowForAlignment.
-Style/SpaceAroundOperators:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
-    - 'lib/blacklight/hierarchy/hierarchical_facet.rb'
-    - 'spec/features/basic_spec.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
@@ -258,40 +164,6 @@ Style/SpaceInsideBrackets:
 # SupportedStyles: space, no_space
 Style/SpaceInsideHashLiteralBraces:
   Enabled: false
-
-# Offense count: 62
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles, ConsistentQuotesInMultiline.
-# SupportedStyles: single_quotes, double_quotes
-Style/StringLiterals:
-  Enabled: false
-
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-# SupportedStyles: final_newline, final_blank_line
-Style/TrailingBlankLines:
-  Exclude:
-    - 'Gemfile'
-    - 'lib/blacklight-hierarchy.rb'
-    - 'lib/generators/blacklight_hierarchy/install_generator.rb'
-    - 'spec/test_app_templates/lib/generators/test_app_generator.rb'
-
-# Offense count: 2
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
-# SupportedStyles: comma, consistent_comma, no_comma
-Style/TrailingCommaInLiteral:
-  Exclude:
-    - 'spec/features/basic_spec.rb'
-
-# Offense count: 16
-# Cop supports --auto-correct.
-Style/TrailingWhitespace:
-  Exclude:
-    - 'app/helpers/blacklight/hierarchy_helper.rb'
-    - 'blacklight-hierarchy.gemspec'
-    - 'lib/blacklight/hierarchy/hierarchical_facet.rb'
 
 # Offense count: 2
 # Cop supports --auto-correct.
