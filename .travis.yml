@@ -5,7 +5,6 @@ rvm:
 
 notifications:
   email:
-    - ndushay@stanford.edu
     - cbeer@stanford.edu
 
 env:
