@@ -8,11 +8,6 @@ class TestAppGenerator < Rails::Generators::Base
     end
   end
 
-  # This is only necessary for Rails 3
-  def remove_index
-    remove_file 'public/index.html'
-  end
-
   def run_blacklight_generator
     say_status('warning', 'GENERATING BL', :yellow)
 
