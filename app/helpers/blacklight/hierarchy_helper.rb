@@ -49,7 +49,7 @@ module Blacklight::HierarchyHelper
     content_tag(:span, render_qfacet_value(facet_solr_field, item, suppress_link: true), class: 'selected') + ' ' +
       link_to(content_tag(:span, '', class: 'glyphicon glyphicon-remove') +
               content_tag(:span, '[remove]', class: 'sr-only'),
-              emove_facet_params(facet_solr_field, item.qvalue, params),
+              remove_facet_params(facet_solr_field, item.qvalue, params),
               class: 'remove'
              )
   end

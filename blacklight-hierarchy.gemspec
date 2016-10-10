@@ -20,12 +20,12 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'rails', '~> 4.1'
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'blacklight', '>= 6.0.0.pre3', '< 7'
+  s.add_dependency 'blacklight', '~> 6.0'
 
   s.add_development_dependency 'rsolr'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sqlite3'
-  s.add_development_dependency 'engine_cart', '~> 0.8'
+  s.add_development_dependency 'engine_cart', '~> 1.0'
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'coveralls'
 end
