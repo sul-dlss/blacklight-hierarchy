@@ -1,11 +1,15 @@
 language: ruby
 sudo: false
 rvm:
-  - 2.2.3
+  - 2.3.1
 
-notifications:
-  email:
-    - cbeer@stanford.edu
+env:
+  - 'RAILS_VERSION=5.0.0.1'
+
+matrix:
+  include:
+    - rvm: 2.3.1
+      env: 'RAILS_VERSION=4.2.7.1'
 
 env:
   global:
