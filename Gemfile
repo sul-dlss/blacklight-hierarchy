@@ -31,15 +31,6 @@ else
       gem 'rails', ENV['RAILS_VERSION']
     end
   end
-
-  case ENV['RAILS_VERSION']
-  when /^4.2/
-    gem 'responders', '~> 2.0'
-    gem 'sass-rails', '>= 5.0'
-    gem 'coffee-rails', '~> 4.1.0'
-  when /^4.[01]/
-    gem 'sass-rails', '< 5.0'
-  end
 end
 # END ENGINE_CART BLOCK
 eval_gemfile File.expand_path("spec/test_app_templates/Gemfile.extra", File.dirname(__FILE__))
