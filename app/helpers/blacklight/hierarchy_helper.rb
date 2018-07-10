@@ -41,15 +41,16 @@ module Blacklight::HierarchyHelper
   end
 
   def render_qfacet_value(facet_solr_field, item, options = {})
-    (link_to_unless(options[:suppress_link], item.value, search_state.add_facet_params(facet_solr_field, item.qvalue), class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
+    (link_to_unless(options[:suppress_link], item.value, path_for_facet(facet_solr_field, item.qvalue), class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
   end
 
   # Standard display of a SELECTED facet value, no link, special span with class, and 'remove' button.
   def render_selected_qfacet_value(facet_solr_field, item)
+    remove_href = search_action_path(search_state.remove_facet_params(facet_solr_field, item.qvalue))
     content_tag(:span, render_qfacet_value(facet_solr_field, item, suppress_link: true), class: 'selected') + ' ' +
       link_to(content_tag(:span, '', class: 'glyphicon glyphicon-remove') +
               content_tag(:span, '[remove]', class: 'sr-only'),
-              search_state.remove_facet_params(facet_solr_field, item.qvalue),
+              remove_href,
               class: 'remove'
              )
   end
