@@ -1,5 +1,5 @@
 module Blacklight
   module Hierarchy
-    VERSION = '2.0.0'.freeze
+    VERSION = '3.0.0.alpha'.freeze
   end
 end
