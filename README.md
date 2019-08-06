@@ -1,5 +1,5 @@
 # Blacklight::Hierarchy
-[![Build Status](https://travis-ci.org/sul-dlss/blacklight-hierarchy.svg?branch=master)](https://travis-ci.org/sul-dlss/blacklight-hierarchy) [![Coverage Status](https://coveralls.io/repos/sul-dlss/blacklight-hierarchy/badge.png)](https://coveralls.io/r/sul-dlss/blacklight-hierarchy) [![Dependency Status](https://gemnasium.com/sul-dlss/blacklight-hierarchy.svg)](https://gemnasium.com/sul-dlss/blacklight-hierarchy) [![Gem Version](https://badge.fury.io/rb/blacklight-hierarchy.svg)](http://badge.fury.io/rb/blacklight-hierarchy)
+[![Build Status](https://travis-ci.org/sul-dlss/blacklight-hierarchy.svg?branch=master)](https://travis-ci.org/sul-dlss/blacklight-hierarchy) [![Coverage Status](https://coveralls.io/repos/sul-dlss/blacklight-hierarchy/badge.png)](https://coveralls.io/r/sul-dlss/blacklight-hierarchy) [![Gem Version](https://badge.fury.io/rb/blacklight-hierarchy.svg)](http://badge.fury.io/rb/blacklight-hierarchy)
 
 This plugin provides hierarchical facets for [Blacklight](https://github.com/projectblacklight/blacklight).
 
