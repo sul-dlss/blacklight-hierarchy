@@ -1,13 +1,24 @@
-#facets {
-  ul.facet-hierarchy {
-    margin-left: 8px;
-    ul {
-      margin-left: 0;
-      border-bottom: none;
-      padding-bottom: 0;
-      li {
-        margin-left: 8px; } }
-    li.h-node {
-      list-style-image: asset_data_url("collapsed.png"); }
-    li.h-node.twiddle-open {
-      list-style-image: asset_data_url("expanded.png"); } } }
+$text-muted: #777777 !default;
+
+.facet-hierarchy {
+  margin-left: -28px;
+
+  ul {
+    margin-left: 0;
+    border-bottom: none;
+    padding-bottom: 0;
+    li {
+      margin-left: 8px;
+    }
+  }
+  .h-node {
+    cursor: pointer;
+    list-style-image: asset_data_url("collapsed.png")
+  }
+  .h-node.twiddle-open {
+    list-style-image: asset_data_url("expanded.png");
+  }
+  .remove {
+    color: $text-muted;
+  }
+}
