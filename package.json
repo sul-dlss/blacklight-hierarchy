@@ -1,0 +1,24 @@
+{
+  "name": "blacklight-hierarchy",
+  "version": "3.0.0-alpha1",
+  "description": "[![Build Status](https://travis-ci.org/sul-dlss/blacklight-hierarchy.png?branch=master)](https://travis-ci.org/sul-dlss/blacklight-hierarchy)",
+  "main": "app/assets/javascripts/blacklight/hierarchy/hierarchy.js",
+  "files": [
+    "app/assets/javascripts/blacklight/hierarchy/*.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sul-dlss/blacklight-hierarchy.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/sul-dlss/blacklight-hierarchy/issues"
+  },
+  "homepage": "https://github.com/sul-dlss/blacklight-hierarchy#readme",
+  "devDependencies": { },
+  "dependencies": {
+    "blacklight-frontend": ">=7.1.0-alpha",
+    "jquery": ">=3.0"
+  }
+}
