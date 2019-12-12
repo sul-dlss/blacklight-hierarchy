@@ -22,10 +22,10 @@ module Blacklight::HierarchyHelper
       subul = subset.keys.sort.collect do |subkey|
         render_facet_hierarchy_item(field_name, subset[subkey], subkey)
       end.join('')
-      ul = "<ul>#{subul}</ul>".html_safe
+      ul = "<ul role=\"group\">#{subul}</ul>".html_safe
     end
 
-    %(<li class="#{li_class}">#{li.html_safe}#{ul.html_safe}</li>).html_safe
+    %(<li class="#{li_class}" role="treeitem">#{li.html_safe}#{ul.html_safe}</li>).html_safe
   end
 
   # @param [Blacklight::Configuration::FacetField] as defined in controller with config.add_facet_field (and with :partial => 'blacklight/hierarchy/facet_hierarchy')
