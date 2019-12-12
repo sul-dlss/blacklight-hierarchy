@@ -18,9 +18,10 @@ Gem::Specification.new do |s|
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
 
+  # Most likely available for even earlier versions of Blacklight, but this is what I validated
+  s.add_dependency 'blacklight', '> 6.20', '< 8.0'
   s.add_dependency 'rails', '>= 4.1', '< 6'
   s.add_dependency 'jquery-rails'
-  s.add_dependency 'blacklight', '~> 7.0'
 
   s.add_development_dependency 'rsolr'
   s.add_development_dependency 'rspec-rails'
