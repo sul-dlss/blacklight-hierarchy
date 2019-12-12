@@ -7,15 +7,16 @@ module Blacklight::HierarchyHelper
     subset = data.reject { |k, _v| !k.is_a?(String) }
 
     li_class = subset.empty? ? 'h-leaf' : 'h-node'
+    id = SecureRandom.uuid
     ul = ''
     li = ''
-    li << facet_toggle_link if subset.any?
+    li << facet_toggle_button(field_name, id) if subset.any?
     li << if item.nil?
             key
           elsif facet_in_params?(field_name, item.qvalue)
             render_selected_qfacet_value(field_name, item)
           else
-            render_qfacet_value(field_name, item)
+            render_qfacet_value(field_name, item, id: id)
           end
 
     unless subset.empty?
@@ -43,7 +44,8 @@ module Blacklight::HierarchyHelper
   end
 
   def render_qfacet_value(facet_solr_field, item, options = {})
-    (link_to_unless(options[:suppress_link], item.value, path_for_facet(facet_solr_field, item.qvalue), class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
+    id = options.delete(:id)
+    (link_to_unless(options[:suppress_link], item.value, path_for_facet(facet_solr_field, item.qvalue), id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
   end
 
   # Standard display of a SELECTED facet value, no link, special span with class, and 'remove' button.
@@ -102,11 +104,20 @@ module Blacklight::HierarchyHelper
     @facet_tree[hkey]
   end
 
-  def facet_toggle_link
+  def facet_toggle_button(field_name, described_by)
+    aria_label = I18n.t(
+      "blacklight.hierarchy.#{field_name}_toggle_aria_label",
+      default: :'blacklight.hierarchy.toggle_aria_label'
+    )
     <<-HTML
-      <button class="toggle-handle" aria-expanded="false">
-        <span class="closed">#{Blacklight::Hierarchy::Engine.config.closed_icon}</span>
-        <span class="opened">#{Blacklight::Hierarchy::Engine.config.opened_icon}</span>
+      <button
+        aria-expanded="false"
+        aria-label="#{aria_label}"
+        aria-describedby="#{described_by}"
+        class="toggle-handle"
+      >
+        <span aria-hidden="true" class="closed">#{Blacklight::Hierarchy::Engine.config.closed_icon}</span>
+        <span aria-hidden="true" class="opened">#{Blacklight::Hierarchy::Engine.config.opened_icon}</span>
       </button>
     HTML
   end
