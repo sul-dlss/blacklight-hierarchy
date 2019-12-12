@@ -8,13 +8,15 @@ module Blacklight::HierarchyHelper
 
     li_class = subset.empty? ? 'h-leaf' : 'h-node'
     ul = ''
-    li = if item.nil?
-           key
-         elsif facet_in_params?(field_name, item.qvalue)
-           render_selected_qfacet_value(field_name, item)
-         else
-           render_qfacet_value(field_name, item)
-         end
+    li = ''
+    li << facet_toggle_link if subset.any?
+    li << if item.nil?
+            key
+          elsif facet_in_params?(field_name, item.qvalue)
+            render_selected_qfacet_value(field_name, item)
+          else
+            render_qfacet_value(field_name, item)
+          end
 
     unless subset.empty?
       subul = subset.keys.sort.collect do |subkey|
@@ -98,6 +100,15 @@ module Blacklight::HierarchyHelper
       end
     end
     @facet_tree[hkey]
+  end
+
+  def facet_toggle_link
+    <<-HTML
+      <button class="toggle-handle" aria-expanded="false">
+        <span class="closed">#{Blacklight::Hierarchy::Engine.config.closed_icon}</span>
+        <span class="opened">#{Blacklight::Hierarchy::Engine.config.opened_icon}</span>
+      </button>
+    HTML
   end
 
   # --------------------------------------------------------------------------------------------------------------------------------

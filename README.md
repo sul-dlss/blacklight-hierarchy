@@ -83,6 +83,15 @@ Facet fields should be added for each permutation of hierarchy key and term valu
 config.facet_display[:hierarchy].each{ |k,v| puts "#{k}_#{v}" }
 ```
 
+### Overriding the icon
+The icon is available in an engine configuration.  You can change them in an initializer in your app.
+
+```ruby
+Blacklight::Hierarchy::Engine.config.closed_icon = '➕'
+Blacklight::Hierarchy::Engine.config.opened_icon = '➖'
+
+```
+
 ## Caveats
 
 This code was ripped out of another project, and is still quite immature as a standalone project. Every effort has been made to make it as plug-and-play as possible, but it may stomp on Blacklight in unintended ways (e.g., ways that made sense in context of its former host app, but which aren't compatible with generic Blacklight). Proceed with caution, and report issues.
