@@ -17,4 +17,12 @@ class TestAppGenerator < Rails::Generators::Base
   def run_hierarchy_install
     generate 'blacklight_hierarchy:install'
   end
+
+  def create_images_directory
+    run 'mkdir app/assets/images'
+  end
+
+  def add_js_reference
+    inject_into_file 'app/assets/config/manifest.js', "\n//= link application.js", after: '//= link_directory ../stylesheets .css'
+  end
 end
