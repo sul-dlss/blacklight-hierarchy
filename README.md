@@ -92,6 +92,20 @@ Blacklight::Hierarchy::Engine.config.opened_icon = '➖'
 
 ```
 
+### Aria Labels
+For screen reader purposes we have used "Toggle subgroup" as the aria-label attribute of the button.  This is internationalized using rails' i18n feature.
+
+The field name is used in the key to allow for facet specific aria labels or defaults back to the generic key/"Toggle subgroup" text.
+
+```yml
+# config/locales/en.yml
+en:
+  blacklight:
+    hierarchy:
+      format_ssim_toggle_aria_label: Toggle format section
+      toggle_aria_label: Toggle call number section
+```
+
 ## Caveats
 
 This code was ripped out of another project, and is still quite immature as a standalone project. Every effort has been made to make it as plug-and-play as possible, but it may stomp on Blacklight in unintended ways (e.g., ways that made sense in context of its former host app, but which aren't compatible with generic Blacklight). Proceed with caution, and report issues.
