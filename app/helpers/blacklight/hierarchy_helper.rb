@@ -45,7 +45,9 @@ module Blacklight::HierarchyHelper
 
   def render_qfacet_value(facet_solr_field, item, options = {})
     id = options.delete(:id)
-    (link_to_unless(options[:suppress_link], item.value, path_for_facet(facet_solr_field, item.qvalue), id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
+    facet_config = facet_configuration_for_field(facet_solr_field)
+    path_for_facet = facet_item_presenter(facet_config, item.qvalue, facet_solr_field).href
+    (link_to_unless(options[:suppress_link], item.value, path_for_facet, id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
   end
 
   # Standard display of a SELECTED facet value, no link, special span with class, and 'remove' button.
