@@ -1,0 +1,10 @@
+<%= render(@layout.new(facet_field: @facet_field)) do |component| %>
+  <% component.with(:label) do %>
+    <%= @facet_field.label %>
+  <% end %>
+  <% component.with(:body) do %>
+    <ul class="facet-hierarchy" role="tree">
+      <%= render_hierarchy %>
+    </ul>
+  <% end %>
+<% end %>
