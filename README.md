@@ -106,6 +106,10 @@ en:
       toggle_aria_label: Toggle call number section
 ```
 
+### Javascript
+
+The javascript in this project requires jquery, but it's up to you to provide it in a way that best works for your project.  You may consider the jquery-rails gem or if you use webpacker, you could use the jquery npm package.
+
 ## Caveats
 
 This code was ripped out of another project, and is still quite immature as a standalone project. Every effort has been made to make it as plug-and-play as possible, but it may stomp on Blacklight in unintended ways (e.g., ways that made sense in context of its former host app, but which aren't compatible with generic Blacklight). Proceed with caution, and report issues.
