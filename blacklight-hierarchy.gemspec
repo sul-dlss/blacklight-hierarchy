@@ -21,7 +21,6 @@ Gem::Specification.new do |s|
   # Most likely available for even earlier versions of Blacklight, but this is what I validated
   s.add_dependency 'blacklight', '> 6.20', '< 8.0'
   s.add_dependency 'rails', '>= 5.1', '< 7'
-  s.add_dependency 'jquery-rails'
 
   s.add_development_dependency 'rsolr'
   s.add_development_dependency 'rspec-rails'
