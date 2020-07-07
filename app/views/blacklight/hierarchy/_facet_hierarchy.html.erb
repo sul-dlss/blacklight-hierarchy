@@ -1,3 +1,7 @@
+<% Deprecation.warn(self, "Calling the blacklight/hierarchy/facet_hierarchy partial is " \
+  "deprecated and will be removed in blacklight-hierarchy 5.0. Replace the facet config for '#{facet_field.key}':\n\n\t" \
+  ":partial => 'blacklight/hierarchy/facet_hierarchy'\n\nwith:\n\n\t" \
+  ":component => Blacklight::Hierarchy::FacetFieldListComponent\n\n") %>
 <ul class="facet-hierarchy" role="tree">
   <%= render_hierarchy(facet_field) %>
 </ul>

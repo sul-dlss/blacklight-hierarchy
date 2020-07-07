@@ -99,9 +99,8 @@ describe 'config_1' do
     before do
       CatalogController.blacklight_config = Blacklight::Configuration.new
       CatalogController.configure_blacklight do |config|
-        #   config.add_facet_field 'rotate_tag_facet', :label => 'Tag',     :partial => 'blacklight/hierarchy/facet_hierarchy'
-        config.add_facet_field 'tag_facet',    label: 'Tag',         partial: 'blacklight/hierarchy/facet_hierarchy'
-        config.add_facet_field 'my_top_facet', label: 'Slash Delim', partial: 'blacklight/hierarchy/facet_hierarchy'
+        config.add_facet_field 'tag_facet',    label: 'Tag',         component: Blacklight::Hierarchy::FacetFieldListComponent
+        config.add_facet_field 'my_top_facet', label: 'Slash Delim', component: Blacklight::Hierarchy::FacetFieldListComponent
         config.facet_display = {
           hierarchy: {
             #       'rotate' => [['tag'  ], ':'], # this would work if config.add_facet_field was called rotate_tag_facet, instead of tag_facet, I think.
@@ -119,8 +118,8 @@ describe 'config_2' do
     before do
       CatalogController.blacklight_config = Blacklight::Configuration.new
       CatalogController.configure_blacklight do |config|
-        config.add_facet_field 'tag_facet',    label: 'Tag',         partial: 'blacklight/hierarchy/facet_hierarchy'
-        config.add_facet_field 'my_top_facet', label: 'Slash Delim', partial: 'blacklight/hierarchy/facet_hierarchy'
+        config.add_facet_field 'tag_facet',    label: 'Tag',         component: Blacklight::Hierarchy::FacetFieldListComponent
+        config.add_facet_field 'my_top_facet', label: 'Slash Delim', component: Blacklight::Hierarchy::FacetFieldListComponent
         config.facet_display = {
           hierarchy: {
             'tag'    => [['facet']], # rely on default delim

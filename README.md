@@ -46,18 +46,18 @@ You can skip as many levels as you'd like, as long as the "leaf" values are inde
 
 **Note**: If you use Solr's built-in [PathHierarchyTokenizerFactory](http://wiki.apache.org/solr/AnalyzersTokenizersTokenFilters#solr.PathHierarchyTokenizerFactory), you can index the entire depth by supplying only the leaf nodes.  Otherwise you are expected to build the permutations yourself before loading.
 
-In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy partial.
+In your Blacklight controller configuration (usually `CatalogController`), tell Blacklight to render the facet using the hierarchy component.
 
 
 ```ruby
-config.add_facet_field 'queue_wps',   :label => 'Queue Status', :partial => 'blacklight/hierarchy/facet_hierarchy'
-config.add_facet_field 'queue_wsp',   :label => 'Queue Status', :partial => 'blacklight/hierarchy/facet_hierarchy'
-config.add_facet_field 'queue_swp',   :label => 'Queue Status', :partial => 'blacklight/hierarchy/facet_hierarchy'
-config.add_facet_field 'callnum_top', :label => 'Callnumber',   :partial => 'blacklight/hierarchy/facet_hierarchy'
-config.add_facet_field 'foo_trunk',   :label => 'Foo L1',       :partial => 'blacklight/hierarchy/facet_hierarchy'
-config.add_facet_field 'foo_branch',  :label => 'Foo L2',       :partial => 'blacklight/hierarchy/facet_hierarchy'
-config.add_facet_field 'foo_leaves',  :label => 'Foo L3',       :partial => 'blacklight/hierarchy/facet_hierarchy'
-config.add_facet_field 'tag_facet',   :label => 'Tag',          :partial => 'blacklight/hierarchy/facet_hierarchy'
+config.add_facet_field 'queue_wps',   label: 'Queue Status', component: Blacklight::Hierarchy::FacetFieldListComponent
+config.add_facet_field 'queue_wsp',   label: 'Queue Status', component: Blacklight::Hierarchy::FacetFieldListComponent
+config.add_facet_field 'queue_swp',   label: 'Queue Status', component: Blacklight::Hierarchy::FacetFieldListComponent
+config.add_facet_field 'callnum_top', label: 'Callnumber',   component: Blacklight::Hierarchy::FacetFieldListComponent
+config.add_facet_field 'foo_trunk',   label: 'Foo L1',       component: Blacklight::Hierarchy::FacetFieldListComponent
+config.add_facet_field 'foo_branch',  label: 'Foo L2',       component: Blacklight::Hierarchy::FacetFieldListComponent
+config.add_facet_field 'foo_leaves',  label: 'Foo L3',       component: Blacklight::Hierarchy::FacetFieldListComponent
+config.add_facet_field 'tag_facet',   label: 'Tag',          component: Blacklight::Hierarchy::FacetFieldListComponent
 ```
 
 Add your hierarchy-specific options to the controller configuration:
