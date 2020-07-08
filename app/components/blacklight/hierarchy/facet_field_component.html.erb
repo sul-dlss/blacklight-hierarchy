@@ -1,0 +1,18 @@
+<li class="<%= li_class %>" role="treeitem">
+  <%= helpers.facet_toggle_button(field_name, id) if subset.any? %>
+  <% if item.nil? %>
+     <%= key %>
+  <% elsif qfacet_selected? %>
+     <%= render Blacklight::Hierarchy::SelectedQfacetValueComponent.new(field_name: field_name, item: item) %>
+  <% else %>
+     <%= render Blacklight::Hierarchy::QfacetValueComponent.new(field_name: field_name, item: item, id: id) %>
+  <% end %>
+
+  <% unless subset.empty? %>
+    <ul role=\"group\">
+    <% subset.keys.sort.each do |subkey| %>
+      <%= render self.class.new(field_name: field_name, tree: subset[subkey], key: subkey) %>
+    <% end %>
+    </ul>
+  <% end %>
+</li>

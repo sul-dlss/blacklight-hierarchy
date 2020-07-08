@@ -1,3 +1,5 @@
+require 'deprecation'
+
 module Blacklight::HierarchyHelper
   # Putting bare HTML strings in a helper sucks. But in this case, with a
   # lot of recursive tree-walking going on, it's an order of magnitude faster
@@ -28,6 +30,7 @@ module Blacklight::HierarchyHelper
 
     %(<li class="#{li_class}" role="treeitem">#{li.html_safe}#{ul.html_safe}</li>).html_safe
   end
+  deprecation_deprecate :render_facet_hierarchy_item
 
   def qfacet_selected?(field_name, item)
     config = facet_configuration_for_field(field_name)
@@ -48,6 +51,7 @@ module Blacklight::HierarchyHelper
       render_facet_hierarchy_item(field_name, tree[key], key)
     end.join("\n").html_safe
   end
+  deprecation_deprecate :render_hierarchy
 
   def render_qfacet_value(facet_solr_field, item, options = {})
     id = options.delete(:id)
@@ -55,6 +59,7 @@ module Blacklight::HierarchyHelper
     path_for_facet = facet_item_presenter(facet_config, item.qvalue, facet_solr_field).href
     (link_to_unless(options[:suppress_link], item.value, path_for_facet, id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
   end
+  deprecation_deprecate :render_qfacet_value
 
   # Standard display of a SELECTED facet value, no link, special span with class, and 'remove' button.
   def render_selected_qfacet_value(facet_solr_field, item)
@@ -66,8 +71,7 @@ module Blacklight::HierarchyHelper
               class: 'remove'
              )
   end
-
-  HierarchicalFacetItem = Struct.new :qvalue, :value, :hits
+  deprecation_deprecate :render_selected_qfacet_value
 
   # @param [String] hkey - a key to access the rest of the hierarchy tree, as defined in controller config.facet_display[:hierarchy] declaration.
   #  e.g. if you had this in controller:
@@ -111,6 +115,7 @@ module Blacklight::HierarchyHelper
     end
     @facet_tree[hkey]
   end
+  deprecation_deprecate :facet_tree
 
   def facet_toggle_button(field_name, described_by)
     aria_label = I18n.t(
@@ -139,11 +144,13 @@ module Blacklight::HierarchyHelper
     (prefix, order) = field_name.split(/_/, 2)
     (list = blacklight_config.facet_display[:hierarchy][prefix]) && list.include?(order)
   end
+  deprecation_deprecate :is_hierarchical?
 
   def facet_order(prefix)
     param_name = "#{prefix}_facet_order".to_sym
     params[param_name] || blacklight_config.facet_display[:hierarchy][prefix].first
   end
+  deprecation_deprecate :facet_order
 
   def facet_after(prefix, order)
     orders = blacklight_config.facet_display[:hierarchy][prefix]
@@ -156,6 +163,8 @@ module Blacklight::HierarchyHelper
     prefix = field_name.split(/_/).first
     field_name != "#{prefix}_#{facet_order(prefix)}"
   end
+  deprecation_deprecate :hide_facet?
+
 
   # FIXME: remove baked in colon separator
   def rotate_facet_value(val, from, to)
@@ -165,6 +174,7 @@ module Blacklight::HierarchyHelper
     return nil if new_values.include?(nil)
     new_values.compact.join(':')
   end
+  deprecation_deprecate :rotate_facet_value
 
   # FIXME: remove baked in underscore separator in field name
   def rotate_facet_params(prefix, from, to, p = params.dup)
@@ -180,6 +190,7 @@ module Blacklight::HierarchyHelper
     p[:f].delete(to_field) if p[:f][to_field].empty?
     p
   end
+  deprecation_deprecate :rotate_facet_params
 
   # FIXME: remove baked in underscore separator in field name
   def render_facet_rotate(field_name)
@@ -191,4 +202,5 @@ module Blacklight::HierarchyHelper
     new_params["#{prefix}_facet_order"] = new_order
     link_to image_tag('icons/rotate.png', title: new_order.upcase).html_safe, new_params, class: 'no-underline'
   end
+  deprecation_deprecate :render_facet_rotate
 end

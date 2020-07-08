@@ -1,0 +1,4 @@
+<span class="selected"><%= render Blacklight::Hierarchy::QfacetValueComponent.new(field_name: field_name, item: item, suppress_link: true) %></span>
+<%= link_to remove_href, class: 'remove' do %>
+  <span class="glyphicon glyphicon-remove"></span><span class="sr-only">[remove]</span>
+<% end %>
