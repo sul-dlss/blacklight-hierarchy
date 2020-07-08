@@ -13,7 +13,7 @@ module Blacklight::HierarchyHelper
     li << facet_toggle_button(field_name, id) if subset.any?
     li << if item.nil?
             key
-          elsif facet_in_params?(field_name, item.qvalue)
+          elsif qfacet_selected?(field_name, item)
             render_selected_qfacet_value(field_name, item)
           else
             render_qfacet_value(field_name, item, id: id)
@@ -28,6 +28,12 @@ module Blacklight::HierarchyHelper
 
     %(<li class="#{li_class}" role="treeitem">#{li.html_safe}#{ul.html_safe}</li>).html_safe
   end
+
+  def qfacet_selected?(field_name, item)
+    config = facet_configuration_for_field(field_name)
+    search_state.has_facet?(config, value: facet_value_for_facet_item(item.qvalue))
+  end
+  private :qfacet_selected?
 
   # @param [Blacklight::Configuration::FacetField] as defined in controller with config.add_facet_field (and with :partial => 'blacklight/hierarchy/facet_hierarchy')
   # @return [String] html for the facet tree
@@ -45,7 +51,9 @@ module Blacklight::HierarchyHelper
 
   def render_qfacet_value(facet_solr_field, item, options = {})
     id = options.delete(:id)
-    (link_to_unless(options[:suppress_link], item.value, path_for_facet(facet_solr_field, item.qvalue), id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
+    facet_config = facet_configuration_for_field(facet_solr_field)
+    path_for_facet = facet_item_presenter(facet_config, item.qvalue, facet_solr_field).href
+    (link_to_unless(options[:suppress_link], item.value, path_for_facet, id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
   end
 
   # Standard display of a SELECTED facet value, no link, special span with class, and 'remove' button.
