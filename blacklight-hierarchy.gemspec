@@ -21,6 +21,7 @@ Gem::Specification.new do |s|
   # A version of blacklight with view_component is required
   s.add_dependency 'blacklight', '~> 7.9'
   s.add_dependency 'rails', '>= 5.1', '< 7'
+  s.add_dependency 'deprecation'
 
   s.add_development_dependency 'rsolr'
   s.add_development_dependency 'rspec-rails'
