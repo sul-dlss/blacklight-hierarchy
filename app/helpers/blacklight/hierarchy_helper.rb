@@ -122,17 +122,14 @@ module Blacklight::HierarchyHelper
       "blacklight.hierarchy.#{field_name}_toggle_aria_label",
       default: :'blacklight.hierarchy.toggle_aria_label'
     )
-    <<-HTML
-      <button
-        aria-expanded="false"
-        aria-label="#{aria_label}"
-        aria-describedby="#{described_by}"
-        class="toggle-handle"
-      >
-        <span aria-hidden="true" class="closed">#{Blacklight::Hierarchy::Engine.config.closed_icon}</span>
-        <span aria-hidden="true" class="opened">#{Blacklight::Hierarchy::Engine.config.opened_icon}</span>
-      </button>
-    HTML
+
+    tag.button('aria-expanded' => 'false',
+                'aria-label' => aria_label,
+                'aria-describedby' => described_by,
+                class: 'toggle-handle') do
+      tag.span(Blacklight::Hierarchy::Engine.config.closed_icon, 'aria-hidden' => 'true', class: 'closed') +
+      tag.span(Blacklight::Hierarchy::Engine.config.opened_icon, 'aria-hidden' => 'true', class: 'opened')
+    end
   end
 
   # --------------------------------------------------------------------------------------------------------------------------------
