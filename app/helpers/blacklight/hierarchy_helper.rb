@@ -123,12 +123,13 @@ module Blacklight::HierarchyHelper
       default: :'blacklight.hierarchy.toggle_aria_label'
     )
 
-    tag.button('aria-expanded' => 'false',
-                'aria-label' => aria_label,
-                'aria-describedby' => described_by,
+    # For Rails 5.2 support all options must be symbols.  See https://github.com/rails/rails/issues/39813
+    tag.button(:'aria-expanded' => 'false',
+                :'aria-label' => aria_label,
+                :'aria-describedby' => described_by,
                 class: 'toggle-handle') do
-      tag.span(Blacklight::Hierarchy::Engine.config.closed_icon, 'aria-hidden' => 'true', class: 'closed') +
-      tag.span(Blacklight::Hierarchy::Engine.config.opened_icon, 'aria-hidden' => 'true', class: 'opened')
+      tag.span(Blacklight::Hierarchy::Engine.config.closed_icon, :'aria-hidden' => 'true', class: 'closed') +
+      tag.span(Blacklight::Hierarchy::Engine.config.opened_icon, :'aria-hidden' => 'true', class: 'opened')
     end
   end
 
