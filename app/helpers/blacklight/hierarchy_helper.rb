@@ -1,6 +1,8 @@
 require 'deprecation'
 
 module Blacklight::HierarchyHelper
+  extend Deprecation
+
   # Putting bare HTML strings in a helper sucks. But in this case, with a
   # lot of recursive tree-walking going on, it's an order of magnitude faster
   # than either render(:partial) or content_tag
@@ -8,29 +10,31 @@ module Blacklight::HierarchyHelper
     item = data[:_]
     subset = data.reject { |k, _v| !k.is_a?(String) }
 
-    li_class = subset.empty? ? 'h-leaf' : 'h-node'
-    id = SecureRandom.uuid
-    ul = ''
-    li = ''
-    li << facet_toggle_button(field_name, id) if subset.any?
-    li << if item.nil?
-            key
-          elsif qfacet_selected?(field_name, item)
-            render_selected_qfacet_value(field_name, item)
-          else
-            render_qfacet_value(field_name, item, id: id)
-          end
+    Deprecation.silence(Blacklight::HierarchyHelper) do
+      li_class = subset.empty? ? 'h-leaf' : 'h-node'
+      id = SecureRandom.uuid
+      ul = ''
+      li = ''
+      li << facet_toggle_button(field_name, id) if subset.any?
+      li << if item.nil?
+              key
+            elsif qfacet_selected?(field_name, item)
+              render_selected_qfacet_value(field_name, item)
+            else
+              render_qfacet_value(field_name, item, id: id)
+            end
 
-    unless subset.empty?
-      subul = subset.keys.sort.collect do |subkey|
-        render_facet_hierarchy_item(field_name, subset[subkey], subkey)
-      end.join('')
-      ul = "<ul role=\"group\">#{subul}</ul>".html_safe
+      unless subset.empty?
+        subul = subset.keys.sort.collect do |subkey|
+          render_facet_hierarchy_item(field_name, subset[subkey], subkey)
+        end.join('')
+        ul = "<ul role=\"group\">#{subul}</ul>".html_safe
+      end
+
+      %(<li class="#{li_class}" role="treeitem">#{li.html_safe}#{ul.html_safe}</li>).html_safe
     end
-
-    %(<li class="#{li_class}" role="treeitem">#{li.html_safe}#{ul.html_safe}</li>).html_safe
   end
-  deprecation_deprecate :render_facet_hierarchy_item
+  # deprecation_deprecate :render_facet_hierarchy_item
 
   def qfacet_selected?(field_name, item)
     config = facet_configuration_for_field(field_name)
@@ -54,10 +58,12 @@ module Blacklight::HierarchyHelper
   deprecation_deprecate :render_hierarchy
 
   def render_qfacet_value(facet_solr_field, item, options = {})
-    id = options.delete(:id)
-    facet_config = facet_configuration_for_field(facet_solr_field)
-    path_for_facet = facet_item_presenter(facet_config, item.qvalue, facet_solr_field).href
-    (link_to_unless(options[:suppress_link], item.value, path_for_facet, id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
+    Deprecation.silence(Blacklight::FacetsHelperBehavior) do
+      id = options.delete(:id)
+      facet_config = facet_configuration_for_field(facet_solr_field)
+      path_for_facet = facet_item_presenter(facet_config, item.qvalue, facet_solr_field).href
+      (link_to_unless(options[:suppress_link], item.value, path_for_facet, id: id, class: 'facet_select') + ' ' + render_facet_count(item.hits)).html_safe
+    end
   end
   deprecation_deprecate :render_qfacet_value
 
