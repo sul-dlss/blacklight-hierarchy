@@ -34,7 +34,7 @@ module Blacklight::HierarchyHelper
       %(<li class="#{li_class}" role="treeitem">#{li.html_safe}#{ul.html_safe}</li>).html_safe
     end
   end
-  # deprecation_deprecate :render_facet_hierarchy_item
+  deprecation_deprecate :render_facet_hierarchy_item
 
   def qfacet_selected?(field_name, item)
     config = facet_configuration_for_field(field_name)
