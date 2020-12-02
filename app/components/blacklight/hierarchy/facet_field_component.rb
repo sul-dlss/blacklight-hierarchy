@@ -26,7 +26,7 @@ module Blacklight
 
       def qfacet_selected?
         config = helpers.facet_configuration_for_field(field_name)
-        helpers.search_state.has_facet?(config, value: item.qvalue)
+        helpers.search_state.filter(config).include?(item.qvalue)
       end
     end
   end
