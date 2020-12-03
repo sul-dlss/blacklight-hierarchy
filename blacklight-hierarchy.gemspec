@@ -18,8 +18,7 @@ Gem::Specification.new do |s|
   s.executables   = s.files.grep(%r{^exe/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  # A version of blacklight with view_component is required
-  s.add_dependency 'blacklight', '~> 7.9'
+  s.add_dependency 'blacklight', '~> 7.13'
   s.add_dependency 'rails', '>= 5.1', '< 7'
   s.add_dependency 'deprecation'
 
