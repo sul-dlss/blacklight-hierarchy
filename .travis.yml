@@ -1,8 +1,0 @@
-language: ruby
-sudo: false
-rvm:
-  - 2.7.1
-
-env:
-  global:
-    - NOKOGIRI_USE_SYSTEM_LIBRARIES=true
