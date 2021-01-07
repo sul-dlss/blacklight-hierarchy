@@ -8,8 +8,11 @@ module Blacklight
       # @param [Blacklight::Configuration::FacetField] as defined in controller with config.add_facet_field (and with :partial => 'blacklight/hierarchy/facet_hierarchy')
       # @return [String] html for the facet tree
       def tree
+
         @tree ||= begin
-          facet_tree_for_prefix = facet_tree
+          facet_tree_for_prefix = FacetTree.build(prefix: prefix,
+                                                  facet_display: blacklight_config.facet_display,
+                                                  facet_field: @facet_field)
           facet_tree_for_prefix ? facet_tree_for_prefix[field_name] : nil
         end
       end
@@ -42,31 +45,7 @@ module Blacklight
         @prefix ||= field_name.gsub("#{DELIMETER}#{field_name.split(/#{DELIMETER}/).last}", '')
       end
 
-
       delegate :blacklight_config, to: :helpers
-
-      def facet_tree
-        @facet_tree ||= {}
-        return @facet_tree[prefix] unless @facet_tree[prefix].nil?
-        return @facet_tree[prefix] unless blacklight_config.facet_display[:hierarchy] && blacklight_config.facet_display[:hierarchy][prefix]
-        @facet_tree[prefix] = {}
-        facet_config = blacklight_config.facet_display[:hierarchy][prefix]
-        split_regex = Regexp.new("\s*#{Regexp.escape(facet_config.length >= 2 ? facet_config[1] : ':')}\s*")
-        facet_config.first.each do |key|
-          # TODO: remove baked in notion of underscores being part of the blacklight facet field names
-          facet_field = [prefix, key].compact.join('_')
-          @facet_tree[prefix][facet_field] ||= {}
-          data = @facet_field.display_facet
-          next if data.nil?
-          data.items.each do |facet_item|
-            path = facet_item.value.split(split_regex)
-            loc = @facet_tree[prefix][facet_field]
-            loc = loc[path.shift] ||= {} while path.length > 0
-            loc[:_] = HierarchicalFacetItem.new(facet_item.value, facet_item.value.split(split_regex).last, facet_item.hits)
-          end
-        end
-        @facet_tree[prefix]
-      end
     end
   end
 end
