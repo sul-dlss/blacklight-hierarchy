@@ -1,7 +1,7 @@
 {
   "name": "blacklight-hierarchy",
   "version": "4.1.0",
-  "description": "[![Build Status](https://travis-ci.org/sul-dlss/blacklight-hierarchy.png?branch=master)](https://travis-ci.org/sul-dlss/blacklight-hierarchy)",
+  "description": "[![Build Status](https://github.com/sul-dlss/blacklight-hierarchy/workflows/CI/badge.svg)](https://github.com/sul-dlss/blacklight-hierarchy/actions?query=branch%3Amain)",
   "main": "app/assets/javascripts/blacklight/hierarchy/hierarchy.js",
   "files": [
     "app/assets/javascripts/blacklight/hierarchy/*.js",
