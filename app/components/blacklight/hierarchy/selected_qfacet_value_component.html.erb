@@ -1,5 +1,5 @@
 <span class="selected"><%= render Blacklight::Hierarchy::QfacetValueComponent.new(field_name: field_name, item: item, suppress_link: true) %></span>
-<%= link_to(remove_href, class: 'btn btn-outline-secondary remove') do %>
+<%= link_to(remove_href, class: 'remove') do %>
   <span class="remove-icon" aria-hidden="true">✖</span>
   <span class="sr-only"><%= t('blacklight.search.facets.selected.remove') %></span>
 <% end %>
