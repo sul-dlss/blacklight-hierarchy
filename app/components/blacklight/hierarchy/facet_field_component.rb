@@ -20,6 +20,11 @@ module Blacklight
         subset.empty? ? 'h-leaf' : 'h-node'
       end
 
+      def controller_name
+        subset.empty? ? '' : 'b-h-collapsible'
+      end
+
+
       def item
         tree[:_]
       end

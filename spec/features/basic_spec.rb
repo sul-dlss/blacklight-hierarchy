@@ -31,8 +31,8 @@ shared_examples 'catalog' do
 
     it 'should display the hierarchy' do
       visit '/'
-      expect(page).to have_selector('li.h-node', text: 'a')
-      expect(page).to have_selector('li.h-node > ul > li.h-node', text: 'b')
+      expect(page).to have_selector('li.h-node[data-controller="b-h-collapsible"]', text: 'a')
+      expect(page).to have_selector('li.h-node > ul > li.h-node[data-controller="b-h-collapsible"]', text: 'b')
       expect(page).to have_selector('li.h-node li.h-leaf', text: 'c 30')
       expect(page).to have_selector('li.h-node li.h-leaf', text: 'd 25')
       expect(page).to have_selector('li.h-node > ul > li.h-node', text: 'c')

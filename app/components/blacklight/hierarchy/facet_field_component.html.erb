@@ -1,4 +1,4 @@
-<li class="<%= li_class %>" role="treeitem">
+<li class="<%= li_class %>" data-controller="<%= controller_name %>" role="treeitem">
   <%= helpers.facet_toggle_button(field_name, id) if subset.any? %>
   <% if item.nil? %>
      <%= key %>
@@ -9,7 +9,7 @@
   <% end %>
 
   <% unless subset.empty? %>
-    <ul role=\"group\">
+    <ul data-b-h-collapsible-target="list" role=\"group\">
     <% subset.keys.sort.each do |subkey| %>
       <%= render self.class.new(field_name: field_name, tree: subset[subkey], key: subkey) %>
     <% end %>

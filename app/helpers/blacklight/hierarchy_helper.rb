@@ -11,6 +11,7 @@ module Blacklight::HierarchyHelper
     tag.button(:'aria-expanded' => 'false',
                 :'aria-label' => aria_label,
                 :'aria-describedby' => described_by,
+                data: { action: 'click->b-h-collapsible#toggle' },
                 class: 'toggle-handle') do
       tag.span(Blacklight::Hierarchy::Engine.config.closed_icon, :'aria-hidden' => 'true', class: 'closed') +
       tag.span(Blacklight::Hierarchy::Engine.config.opened_icon, :'aria-hidden' => 'true', class: 'opened')
