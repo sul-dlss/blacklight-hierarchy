@@ -10,7 +10,7 @@
   <% end %>
 
   <% unless subset.empty? %>
-    <ul id="<%= ul_id %>" data-b-h-collapsible-target="list" role=\"group\">
+    <ul id="<%= ul_id %>" class="collapse" data-b-h-collapsible-target="list" role=\"group\">
     <% subset.keys.sort.each do |subkey| %>
       <%= render self.class.new(field_name: field_name, tree: subset[subkey], key: subkey) %>
     <% end %>
