@@ -14,7 +14,11 @@ module Blacklight::HierarchyHelper
                  describedby: described_by,
                  controls: controls
                },
-               data: { action: 'click->b-h-collapsible#toggle' },
+               data: {
+                 action: 'click->b-h-collapsible#toggle',
+                 toggle: 'collapse',
+                 target: controls
+               },
                class: 'toggle-handle') do
       tag.span(Blacklight::Hierarchy::Engine.config.closed_icon, :'aria-hidden' => 'true', class: 'closed') +
       tag.span(Blacklight::Hierarchy::Engine.config.opened_icon, :'aria-hidden' => 'true', class: 'opened')
