@@ -1,5 +1,6 @@
 <li class="<%= li_class %>" data-controller="<%= controller_name %>" role="treeitem">
-  <%= helpers.facet_toggle_button(field_name, id) if subset.any? %>
+  <% ul_id = "b-h-#{SecureRandom.alphanumeric(10)}" %>
+  <%= helpers.facet_toggle_button(field_name, id, ul_id) if subset.any? %>
   <% if item.nil? %>
      <%= key %>
   <% elsif qfacet_selected? %>
@@ -9,7 +10,7 @@
   <% end %>
 
   <% unless subset.empty? %>
-    <ul data-b-h-collapsible-target="list" role=\"group\">
+    <ul id="<%= ul_id %>" data-b-h-collapsible-target="list" role=\"group\">
     <% subset.keys.sort.each do |subkey| %>
       <%= render self.class.new(field_name: field_name, tree: subset[subkey], key: subkey) %>
     <% end %>
