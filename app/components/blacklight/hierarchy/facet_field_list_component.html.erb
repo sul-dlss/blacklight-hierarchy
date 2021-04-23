@@ -1,8 +1,8 @@
 <%= render(@layout.new(facet_field: @facet_field)) do |component| %>
-  <% component.with(:label) do %>
+  <% component.label do %>
     <%= @facet_field.label %>
   <% end %>
-  <% component.with(:body) do %>
+  <% component.body do %>
     <ul class="facet-hierarchy" role="tree">
       <% tree.keys.sort.collect do |key| %>
         <%= render Blacklight::Hierarchy::FacetFieldComponent.new(field_name: @facet_field.facet_field.field, tree: tree[key], key: key) %>
