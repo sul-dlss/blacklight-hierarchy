@@ -19,6 +19,7 @@ Blacklight.onLoad(function(){
     $(Blacklight.do_hierarchical_facet_expand_contract_behavior.list, this).each(function() {
       if($('span.selected', this).length != 0){
         li.addClass('twiddle-open');
+        li.children('.collapse').addClass('in');
       }
     });
 
