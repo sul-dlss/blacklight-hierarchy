@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_dependency 'blacklight', '>= 7.18', '< 9'
-  s.add_dependency 'rails', '>= 5.1', '< 7.1'
+  s.add_dependency 'rails', '>= 6', '< 7.1'
   s.add_dependency 'deprecation'
 
   s.add_development_dependency 'rsolr'
