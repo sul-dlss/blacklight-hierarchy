@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+gem 'blacklight', '~> 8.0.0.a', github: 'projectblacklight/blacklight', branch: 'main'
+
 # Declare gem dependencies in blacklight-hierarchy-facets.gemspec.
 gemspec
 

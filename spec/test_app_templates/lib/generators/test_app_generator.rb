@@ -2,7 +2,9 @@ require 'rails/generators'
 
 class TestAppGenerator < Rails::Generators::Base
   def add_gems
-    gem 'blacklight'
+    # gem 'blacklight'
+    # gem 'blacklight', '~> 8.0.0.a', github: 'projectblacklight/blacklight', branch: 'main'
+
     Bundler.with_clean_env do
       run 'bundle install'
     end
