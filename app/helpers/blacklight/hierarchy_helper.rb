@@ -22,8 +22,8 @@ module Blacklight::HierarchyHelper
                  bs_target: "##{controls}"
                },
                class: 'toggle-handle') do
-      tag.span(Blacklight::Hierarchy::Engine.config.closed_icon, :'aria-hidden' => 'true', class: 'closed') +
-      tag.span(Blacklight::Hierarchy::Engine.config.opened_icon, :'aria-hidden' => 'true', class: 'opened')
+      tag.div( :'aria-hidden' => 'true', class: 'closed toggle-icon') +
+      tag.div( :'aria-hidden' => 'true', class: 'opened toggle-icon')
     end
   end
 
