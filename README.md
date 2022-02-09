@@ -84,15 +84,13 @@ config.facet_display[:hierarchy].each{ |k,v| puts "#{k}_#{v}" }
 ```
 
 ### Changing the icons
-The icons are set as a CSS `background-image` property on the selectors `.twiddle > .toggle-handle .closed` and `.twiddle > .toggle-handle .closed`. By default we use SVGs provided by the [Font Awesome](https://github.com/FortAwesome/Font-Awesome) library. Here's an example:
+We store our closed/open icons as the SASS variables `$closed-icon` and `$opened-icon` in `hierarchy.scss`. By default we use SVGs provided by the [Font Awesome](https://github.com/FortAwesome/Font-Awesome) library. To change the icon, reassign these SASS variables with new SVG code. 
 
-```css
+```scss
   /* app/assets/stylesheets/blacklight/hierarchy/hierarchy.scss */
 
-  .twiddle>.toggle-handle .closed {
-    background-image: url('data:image/svg+xml, <svg aria-hidden="true" focusable="false" data-prefix="far" data-icon="plus-square" class="svg-inline--fa fa-plus-square fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M352 240v32c0 6.6-5.4 12-12 12h-88v88c0 6.6-5.4 12-12 12h-32c-6.6 0-12-5.4-12-12v-88h-88c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h88v-88c0-6.6 5.4-12 12-12h32c6.6 0 12 5.4 12 12v88h88c6.6 0 12 5.4 12 12zm96-160v352c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V80c0-26.5 21.5-48 48-48h352c26.5 0 48 21.5 48 48zm-48 346V86c0-3.3-2.7-6-6-6H54c-3.3 0-6 2.7-6 6v340c0 3.3 2.7 6 6 6h340c3.3 0 6-2.7 6-6z"></path></svg>');
-    display: inline-block;
-  }
+  // plus sign
+  $closed-icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M200 344V280H136C122.7 280 112 269.3 112 256C112 242.7 122.7 232 136 232H200V168C200 154.7 210.7 144 224 144C237.3 144 248 154.7 248 168V232H312C325.3 232 336 242.7 336 256C336 269.3 325.3 280 312 280H248V344C248 357.3 237.3 368 224 368C210.7 368 200 357.3 200 344zM0 96C0 60.65 28.65 32 64 32H384C419.3 32 448 60.65 448 96V416C448 451.3 419.3 480 384 480H64C28.65 480 0 451.3 0 416V96zM48 96V416C48 424.8 55.16 432 64 432H384C392.8 432 400 424.8 400 416V96C400 87.16 392.8 80 384 80H64C55.16 80 48 87.16 48 96z"/></svg>';
 ```
 
 
