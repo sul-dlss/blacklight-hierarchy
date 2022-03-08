@@ -19,23 +19,10 @@ jobs:
     strategy:
       matrix:
         ruby: [2.7, '3.0']
-    steps:
-    - uses: actions/checkout@v2
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-    - name: Install dependencies
-      run: bundle install
-    - name: Run tests
-      run: bundle exec rake ci
-      env:
-        ENGINE_CART_RAILS_OPTIONS: '--skip-git --skip-listen --skip-spring --skip-keeps --skip-action-cable --skip-coffee --skip-test'
-  test_rails5:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        ruby: [2.7, 2.6]
+        rails_version: ['7.0.2.2', '6.1.4.6']
+        include:
+          - ruby: '2.7'
+            rails_version: '5.2.4.2'
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -45,9 +32,9 @@ jobs:
     - name: Install dependencies
       run: bundle install
       env:
-        RAILS_VERSION: 5.2.4.2
+        RAILS_VERSION: ${{ matrix.rails_version }}
     - name: Run tests
       run: bundle exec rake ci
       env:
-        RAILS_VERSION: 5.2.4.2
+        RAILS_VERSION: ${{ matrix.rails_version }}
         ENGINE_CART_RAILS_OPTIONS: '--skip-git --skip-listen --skip-spring --skip-keeps --skip-action-cable --skip-coffee --skip-test'
