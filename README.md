@@ -84,7 +84,7 @@ config.facet_display[:hierarchy].each{ |k,v| puts "#{k}_#{v}" }
 ```
 
 ### Changing the icons
-We store our closed/open icons as the SASS variables `$b-h-closed-icon` and `$b-h-closed-icon` in `hierarchy.scss`. By default we use SVGs provided by the [Font Awesome](https://github.com/FortAwesome/Font-Awesome) library. To change the icon, reassign these SASS variables with new SVG code. 
+We store our closed/open icons as the SASS variables `$b-h-closed-icon` and `$b-h-closed-icon` in `hierarchy.scss`. By default we use SVGs provided by the [Font Awesome](https://github.com/FortAwesome/Font-Awesome) library. To change the icon, reassign these SASS variables with new SVG code.
 
 ```scss
   /* app/assets/stylesheets/blacklight/hierarchy/hierarchy.scss */
@@ -120,5 +120,4 @@ This code was ripped out of another project, and is still quite immature as a st
 
 - WRITE TESTS
 - Switch internal facet management from hack-y Hash to `Blacklight::Hierarchy::FacetGroup` class (already implemented, but not plumbed up)
-- Add configuration support for hierarchy delimiters other than `/\s*:\s*/` (baked into `Blacklight::Hierarchy::FacetGroup`, but again, requiring additional plumbing)
 - Clarify when suffix is applied/required/etc.
