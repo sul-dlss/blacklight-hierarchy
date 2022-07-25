@@ -121,8 +121,7 @@ This code was ripped out of another project, and is still quite immature as a st
 In order to cut a new release you will need to publish simultaneously to NPM and RubyGems. Before you do that ensure that versions in `lib/blacklight/hierarchy/version.rb` and `package.json` match. Assuming you have the credentials to do it you can then:
 
 ```
-$ gem build
-$ gem push blacklight-hiearchy-0.1.0.gem
+$ rake release
 $ npm publish
 ```
 
