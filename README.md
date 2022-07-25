@@ -116,6 +116,16 @@ The javascript in this project requires jquery, but it's up to you to provide it
 
 This code was ripped out of another project, and is still quite immature as a standalone project. Every effort has been made to make it as plug-and-play as possible, but it may stomp on Blacklight in unintended ways (e.g., ways that made sense in context of its former host app, but which aren't compatible with generic Blacklight). Proceed with caution, and report issues.
 
+## Release
+
+In order to cut a new release you will need to publish simultaneously to NPM and RubyGems. Before you do that ensure that versions in `lib/blacklight/hierarchy/version.rb` and `package.json` match. Assuming you have the credentials to do it you can then:
+
+```
+$ gem build
+$ gem push blacklight-hiearchy-0.1.0.gem
+$ npm publish
+```
+
 ## TODO
 
 - WRITE TESTS
