@@ -19,7 +19,7 @@
   "homepage": "https://github.com/sul-dlss/blacklight-hierarchy#readme",
   "devDependencies": { },
   "dependencies": {
-    "blacklight-frontend": ">=7.1.0-alpha",
+    "blacklight-frontend": ">=7.1 || 8.0",
     "jquery": ">=3.0"
   }
 }
