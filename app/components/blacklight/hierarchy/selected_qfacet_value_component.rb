@@ -12,7 +12,7 @@ module Blacklight
       attr_reader :field_name, :item
 
       def remove_href
-        helpers.search_action_path(helpers.search_state.remove_facet_params(field_name, item.qvalue))
+        helpers.search_action_path(helpers.search_state.filter(field_name).remove(item.qvalue).params)
       end
     end
   end
