@@ -14,7 +14,7 @@ module Blacklight
 
       def path_for_facet
         facet_config = helpers.facet_configuration_for_field(field_name)
-        presenter_class = if helpers.search_state.params.except(:controller, :action).present?
+        presenter_class = if helpers.search_state.has_constraints?
            Blacklight::FacetItemPresenter
         else
           # Bypasses slow Blacklight machinery for empty search state.
