@@ -14,7 +14,14 @@ module Blacklight
 
       def path_for_facet
         facet_config = helpers.facet_configuration_for_field(field_name)
-        Blacklight::FacetItemPresenter.new(item.qvalue, facet_config, helpers, field_name).href
+        presenter_class = if helpers.search_state.params.except(:controller, :action).present?
+           Blacklight::FacetItemPresenter
+        else
+          # Bypasses slow Blacklight machinery for empty search state.
+          # Aprox 3X faster in test with large facet.
+          FastFacetItemPresenter
+        end
+        presenter_class.new(item.qvalue, facet_config, helpers, field_name).href
       end
 
       def render_facet_count
