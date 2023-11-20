@@ -5,9 +5,6 @@ require 'rsolr'
 require 'engine_cart'
 EngineCart.load_application!
 
-require 'coveralls'
-Coveralls.wear!
-
 require 'capybara/rspec'
 require 'rspec/rails'
 require 'capybara/rails'
