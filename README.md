@@ -1,5 +1,5 @@
 # Blacklight::Hierarchy
-[![Build Status](https://github.com/sul-dlss/blacklight-hierarchy/workflows/CI/badge.svg)](https://github.com/sul-dlss/blacklight-hierarchy/actions?query=branch%3Amain) [![Coverage Status](https://coveralls.io/repos/sul-dlss/blacklight-hierarchy/badge.png)](https://coveralls.io/r/sul-dlss/blacklight-hierarchy) [![Gem Version](https://badge.fury.io/rb/blacklight-hierarchy.svg)](http://badge.fury.io/rb/blacklight-hierarchy)
+[![Build Status](https://github.com/sul-dlss/blacklight-hierarchy/workflows/CI/badge.svg)](https://github.com/sul-dlss/blacklight-hierarchy/actions?query=branch%3Amain) [![Gem Version](https://badge.fury.io/rb/blacklight-hierarchy.svg)](http://badge.fury.io/rb/blacklight-hierarchy)
 
 This plugin provides hierarchical facets for [Blacklight](https://github.com/projectblacklight/blacklight).
 
