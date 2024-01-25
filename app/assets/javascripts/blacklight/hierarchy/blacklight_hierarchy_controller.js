@@ -6,11 +6,15 @@ export default class extends Controller {
     this.element.classList.add("twiddle")
 
     // If a child facet-value is selected, then expand the node
-    if (this.element.querySelector(':scope > span.selected')) {
+    if (this.isChildSelected()) {
       this.element.classList.add('twiddle-open')
       this.element.querySelectorAll(':scope > .collapse')
         .forEach((collapsable) => collapsable.classList.add('show'))
     }
+  }
+
+  isChildSelected() {
+    return this.element.querySelector('span.selected')
   }
 
   toggle() {
