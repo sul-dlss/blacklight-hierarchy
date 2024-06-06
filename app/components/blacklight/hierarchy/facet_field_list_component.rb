@@ -3,7 +3,7 @@
 module Blacklight
   module Hierarchy
     class FacetFieldListComponent < Blacklight::FacetFieldListComponent
-      DELIMETER = '_'
+      DELIMITER = '_'
 
       # @param [Blacklight::Configuration::FacetField] as defined in controller with config.add_facet_field (and with :partial => 'blacklight/hierarchy/facet_hierarchy')
       # @return [String] html for the facet tree
@@ -42,7 +42,7 @@ module Blacklight
       #  might contain values like ['LB', 'LB/2395', 'LB/2395/.C65', 'LB/2395/.C65/1991'].
       # note: the suffixes (e.g. 'ssim' for 'exploded_tag' in the above example) can't have underscores, otherwise things break.
       def prefix
-        @prefix ||= field_name.gsub("#{DELIMETER}#{field_name.split(/#{DELIMETER}/).last}", '')
+        @prefix ||= field_name.gsub("#{DELIMITER}#{field_name.split(/#{DELIMITER}/).last}", '')
       end
 
       delegate :blacklight_config, to: :helpers

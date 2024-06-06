@@ -77,10 +77,26 @@ In the above configuration, 'queue_status_facet' is the full Solr field name, an
 
 The `[nil]` value is present in support of rotatable facet hierarchies, a totally undocumented feature.
 
+You may optionally configure a custom facet item presenter, e.g.:
+
+```ruby
+config.facet_display = {
+  :hierarchy => {
+    'location_hierarchy' => [['f'], ':', MyApp::CustomFacetItemPresenter] # values are arrays: 1st element is array, 2nd is delimiter string, 3rd is a presenter
+  }
+}
+```
+
 Facet fields should be added for each permutation of hierarchy key and term values, joined by **_**.  Or, the output of:
 
 ```ruby
 config.facet_display[:hierarchy].each{ |k,v| puts "#{k}_#{v}" }
+```
+### Sorting
+Sorting for a hierarchical facet item list is configured just like a non-hierarchical Blacklight facet. By default, the list sorts by count. To specify alphabetical sorting, use `sort: 'alpha'` in `config.add_facet_field`, e.g.:
+
+```ruby
+config.add_facet_field 'tag_facet', sort: 'alpha', label: 'Tag', component: Blacklight::Hierarchy::FacetFieldListComponent
 ```
 
 ### Changing the icons

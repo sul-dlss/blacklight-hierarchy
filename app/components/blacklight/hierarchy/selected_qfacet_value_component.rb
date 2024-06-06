@@ -3,7 +3,7 @@
 module Blacklight
   module Hierarchy
     # Standard display of a SELECTED facet value, no link, special span with class, and 'remove' button.
-    class SelectedQfacetValueComponent < ::ViewComponent::Base
+    class SelectedQfacetValueComponent < QfacetValueComponent
       def initialize(field_name:, item:)
         @field_name = field_name
         @item = item
