@@ -29,8 +29,7 @@ RSpec.describe 'Basic feature specs', type: :feature do
   end
 
   before do
-    rsolr_client = instance_double(RSolr::Client)
-    allow(rsolr_client).to receive(:send_and_receive).and_return solr_facet_resp
+    rsolr_client = instance_double(RSolr::Client, send_and_receive: solr_facet_resp)
     allow(RSolr).to receive(:connect).and_return rsolr_client
   end
 
