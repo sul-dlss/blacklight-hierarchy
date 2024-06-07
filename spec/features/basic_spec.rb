@@ -29,14 +29,14 @@ RSpec.describe 'Basic feature specs', type: :feature do
   end
 
   before do
-    rsolr_client = double('rsolr_client')
+    rsolr_client = instance_double(RSolr::Client)
     allow(rsolr_client).to receive(:send_and_receive).and_return solr_facet_resp
     allow(RSolr).to receive(:connect).and_return rsolr_client
   end
 
   shared_examples 'catalog' do
     context 'facet tree without repeated nodes' do
-      it 'should display the hierarchy' do
+      it 'displays the hierarchy' do
         visit '/'
         expect(page).to have_selector('li.h-node[data-controller="b-h-collapsible"]', text: 'a')
         expect(page).to have_selector('li.h-node > ul > li.h-node[data-controller="b-h-collapsible"]', text: 'b')
@@ -52,14 +52,14 @@ RSpec.describe 'Basic feature specs', type: :feature do
         expect(page).to have_selector('.facet-hierarchy > li.h-leaf', text: 'n 1')
       end
 
-      it 'should properly link the hierarchy' do
+      it 'properly links the hierarchy' do
         visit '/'
         expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(root_path('f' => { 'tag_facet' => ['n'] }))
         expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(root_path('f' => { 'tag_facet' => ['a:b:c'] }))
         expect(page.all(:css, 'li.h-leaf a').map { |a| a[:href].to_s }).to include(root_path('f' => { 'tag_facet' => ['x:y'] }))
       end
 
-      it 'should work with a different value delimiter' do
+      it 'works with a different value delimiter' do
         visit '/'
         expect(page).to have_selector('li.h-node', text: 'f')
         expect(page).to have_selector('li.h-node > ul > li.h-node', text: 'g')
@@ -86,7 +86,7 @@ RSpec.describe 'Basic feature specs', type: :feature do
             'facet_ranges' => {}
           } }
       end
-      it 'should display all child nodes when a node value is repeated at its child level' do
+      it 'displays all child nodes when a node value is repeated at its child level' do
         visit '/'
         expect(page).to have_selector('li.h-node', text: 'm')
         expect(page).to have_selector('li.h-node > ul > li.h-node', text: 'w')
@@ -107,7 +107,6 @@ RSpec.describe 'Basic feature specs', type: :feature do
           config.add_facet_field 'my_top_facet', label: 'Slash Delim', component: Blacklight::Hierarchy::FacetFieldListComponent
           config.facet_display = {
             hierarchy: {
-              #       'rotate' => [['tag'  ], ':'], # this would work if config.add_facet_field was called rotate_tag_facet, instead of tag_facet, I think.
               'tag' => [['facet'], ':'], # stupidly, the facet field is expected to have an underscore followed by SOMETHING;  in this case it is "facet"
               'my_top' => [['facet'], '/']
             }
