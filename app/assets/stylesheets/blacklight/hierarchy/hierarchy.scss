@@ -8,30 +8,40 @@ $text-muted: #777 !default;
 .facet-hierarchy {
   list-style-type: none;
   padding-left: 0;
+  flex: 1 1 100%;
+  width: 100%;
 
   ul {
-    border-bottom: 0;
     list-style-type: none;
-    padding-bottom: 0;
-    padding-left: 1.3em;
+    padding-left: 0.75rem;
+    flex: 1 1 100%;
+    width: 100%;
   }
 
-  .facet_select {
-    display: inline-block;
-    margin-bottom: 6px;
-    max-width: calc(100% - 5em);
+  .facet-label {
+    flex: 1;
+  }
+
+  .facet-select {
+    flex: 1;
+    word-break: break-word;
   }
 
   .facet-count {
     float: right;
+    flex: 0 0 auto;
+    padding-left: 0.5rem;
   }
 
   .toggle-handle {
     border: 0;
     margin: 0;
-    min-width: 1em;
+    width: 1.5rem;
+    height: 1.5rem;
     padding: 0;
     vertical-align: top;
+    display: flex;
+    align-items: flex-start;
 
     .closed,
     .opened {
@@ -46,9 +56,9 @@ $text-muted: #777 !default;
   .twiddle>.toggle-handle .toggle-icon {
     background-position: center;
     background-repeat: no-repeat;
-    margin-top: 3px;
-    min-height: 20px;
-    min-width: 20px;
+    margin-top: 0.25rem;
+    min-height: 1.1rem;
+    min-width: 1.1rem;
   }
 
   .twiddle>.toggle-handle .closed {
@@ -69,12 +79,14 @@ $text-muted: #777 !default;
     display: inline-block;
   }
 
-  .h-leaf {
-    padding-left: 1.3em;
+  .h-node, .h-leaf {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 3px 0;
   }
 
-  .h-node {
-    cursor: pointer;
+  .h-leaf {
+    padding-left: 1.5rem;
   }
 
   .remove {

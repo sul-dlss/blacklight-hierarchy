@@ -4,7 +4,7 @@
   <% end %>
   <% component.with_body do %>
     <ul class="facet-hierarchy" role="tree">
-      <% tree.keys.sort.collect do |key| %>
+      <% tree.keys.collect do |key| %>
         <%= render Blacklight::Hierarchy::FacetFieldComponent.new(field_name: @facet_field.facet_field.field, tree: tree[key], key: key) %>
       <% end %>
     </ul>
