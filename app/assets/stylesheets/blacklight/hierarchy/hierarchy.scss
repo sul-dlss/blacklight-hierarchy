@@ -5,6 +5,10 @@ $b-h-opened-icon: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg
 
 $text-muted: #777 !default;
 
+:root {
+  --text-muted: #{$text-muted};
+}
+
 .facet-hierarchy {
   list-style-type: none;
   padding-left: 0;
@@ -49,11 +53,11 @@ $text-muted: #777 !default;
     }
   }
 
-  .twiddle>.toggle-handle {
+  .twiddle > .toggle-handle {
     background-color: transparent;
   }
 
-  .twiddle>.toggle-handle .toggle-icon {
+  .twiddle > .toggle-handle .toggle-icon {
     background-position: center;
     background-repeat: no-repeat;
     margin-top: 0.25rem;
@@ -61,25 +65,26 @@ $text-muted: #777 !default;
     min-width: 1.1rem;
   }
 
-  .twiddle>.toggle-handle .closed {
+  .twiddle > .toggle-handle .closed {
     background-image: escape-svg($b-h-closed-icon);
     display: inline-block;
   }
 
-  .twiddle>.toggle-handle .opened {
+  .twiddle > .toggle-handle .opened {
     display: none;
   }
 
-  .twiddle-open>.toggle-handle .closed {
+  .twiddle-open > .toggle-handle .closed {
     display: none;
   }
 
-  .twiddle-open>.toggle-handle .opened {
+  .twiddle-open > .toggle-handle .opened {
     background-image: escape-svg($b-h-opened-icon);
     display: inline-block;
   }
 
-  .h-node, .h-leaf {
+  .h-node,
+  .h-leaf {
     display: flex;
     flex-wrap: wrap;
     padding: 3px 0;
@@ -90,6 +95,6 @@ $text-muted: #777 !default;
   }
 
   .remove {
-    color: $text-muted;
+    color: var(--text-muted);
   }
 }
