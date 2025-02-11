@@ -28,7 +28,7 @@ module Blacklight
               path = facet_item.value.split(split_regex)
               loc = tree[facet_field]
               loc = loc[path.shift] ||= {} while path.length > 0
-              next unless facet_item.value.split(split_regex).present?
+              raise(StandardError, "Expected non-empty array after splitting facet value. Original facet value: '#{facet_item.value}'") unless facet_item.value.split(split_regex).present?
 
               loc[:_] = HierarchicalFacetItem.new(facet_item.value, facet_item.value.split(split_regex).last, facet_item.hits)
             end
