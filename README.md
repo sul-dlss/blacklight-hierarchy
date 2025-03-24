@@ -146,3 +146,10 @@ $ npm publish
 - WRITE TESTS
 - Switch internal facet management from hack-y Hash to `Blacklight::Hierarchy::FacetGroup` class (already implemented, but not plumbed up)
 - Clarify when suffix is applied/required/etc.
+
+## Developing gem
+- Clone locally `git@github.com:sul-dlss/blacklight-hierarchy.git`
+- go into project directory `cd blacklight-hierarchy`
+- install dependencies `bundle install`
+- Create a test app to develop and test against `bundle exec rake engine_cart:generate
+- Run tests `bundle exec rspec`
