@@ -2,7 +2,8 @@
 
 module Blacklight
   module Hierarchy
-    class FacetFieldListComponent < Blacklight::FacetFieldListComponent
+    superklass = defined?(Blacklight::Facets::ListComponent) ? Blacklight::Facets::ListComponent : Blacklight::FacetFieldListComponent
+    class FacetFieldListComponent < superklass
       DELIMITER = '_'
 
       # @param [Blacklight::Configuration::FacetField] as defined in controller with config.add_facet_field (and with :partial => 'blacklight/hierarchy/facet_hierarchy')
