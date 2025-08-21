@@ -1,5 +1,4 @@
 <li class="<%= li_class %>" data-controller="<%= controller_name %>" role="treeitem">
-  <% ul_id = "b-h-#{SecureRandom.alphanumeric(10)}" %>
   <%= helpers.facet_toggle_button(field_name, id, ul_id) if subset.any? %>
   <% if item.nil? %>
      <%= key %>
