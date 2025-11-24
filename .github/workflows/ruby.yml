@@ -35,7 +35,7 @@ jobs:
     env:
       BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
