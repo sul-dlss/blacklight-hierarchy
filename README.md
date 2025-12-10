@@ -147,5 +147,5 @@ $ npm publish
 - Clone locally `git@github.com:sul-dlss/blacklight-hierarchy.git`
 - go into project directory `cd blacklight-hierarchy`
 - install dependencies `bundle install`
-- Create a test app to develop and test against `bundle exec rake engine_cart:generate
+- Create a test app to develop and test against `bundle exec rake engine_cart:generate`
 - Run tests `bundle exec rspec`
