@@ -30,8 +30,8 @@ jobs:
             blacklight_version: "7.38.0"
           - ruby: "3.4"
             rails_version: "8.0.2"
-            name: "Blacklight 9 beta"
-            blacklight_version: "9.0.0.beta2"
+            name: "Blacklight 9"
+            blacklight_version: "9.0.0"
     env:
       BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}
     steps:
