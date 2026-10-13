@@ -3,7 +3,7 @@ require 'rails/generators'
 class TestAppGenerator < Rails::Generators::Base
   def add_gems
     gem 'blacklight' unless Bundler.locked_gems.dependencies.key? 'blacklight'
-    Bundler.with_clean_env do
+    Bundler.with_unbundled_env do
       run 'bundle install'
     end
   end
