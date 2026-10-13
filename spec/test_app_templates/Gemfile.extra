@@ -1,1 +1,5 @@
-gem 'blacklight', ENV['BLACKLIGHT_VERSION'] if ENV['BLACKLIGHT_VERSION'] && !ENV['BLACKLIGHT_VERSION'].empty?
+if ENV['BLACKLIGHT_BRANCH'] && !ENV['BLACKLIGHT_BRANCH'].empty?
+  gem 'blacklight', github: 'projectblacklight/blacklight', branch: ENV['BLACKLIGHT_BRANCH']
+elsif ENV['BLACKLIGHT_VERSION'] && !ENV['BLACKLIGHT_VERSION'].empty?
+  gem 'blacklight', ENV['BLACKLIGHT_VERSION']
+end
