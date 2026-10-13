@@ -26,10 +26,25 @@ jobs:
             rails_version: "8.1.4"
             name: "Blacklight 9"
             blacklight_version: "9.2.1"
+          - ruby: "4.0"
+            rails_version: "8.1.4"
+            name: "Bootstrap 6"
+            # TODO: use a blacklight_version once projectblacklight/blacklight#3928 is released.
+            # blacklight_version is overridden so this becomes its own job rather than merging into the 3.4/8.0.2 one
+            blacklight_version: ""
+            blacklight_branch: "bootstrap6"
+            bootstrap_version: "6.0.0-alpha.1"
+            # Blacklight's importmap generator loads the Bootstrap version given in BOOTSTRAP_VERSION
+            engine_cart_rails_options: "--skip-git --skip-listen --skip-spring --skip-keeps --skip-kamal --skip-solid --skip-coffee --skip-test"
     env:
       BLACKLIGHT_VERSION: ${{ matrix.blacklight_version }}
+      BLACKLIGHT_BRANCH: ${{ matrix.blacklight_branch }}
     steps:
       - uses: actions/checkout@v7
+      # Only set when needed; Blacklight's generators treat an empty BOOTSTRAP_VERSION as a version
+      - name: Set Bootstrap version
+        if: matrix.bootstrap_version
+        run: echo "BOOTSTRAP_VERSION=${{ matrix.bootstrap_version }}" >> "$GITHUB_ENV"
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -42,4 +57,4 @@ jobs:
         run: bundle exec rake ci
         env:
           RAILS_VERSION: ${{ matrix.rails_version }}
-          ENGINE_CART_RAILS_OPTIONS: "--skip-git --skip-listen --skip-spring --skip-keeps --skip-kamal --skip-solid --skip-coffee --skip-test -a propshaft --css=bootstrap"
+          ENGINE_CART_RAILS_OPTIONS: ${{ matrix.engine_cart_rails_options || '--skip-git --skip-listen --skip-spring --skip-keeps --skip-kamal --skip-solid --skip-coffee --skip-test -a propshaft --css=bootstrap' }}
