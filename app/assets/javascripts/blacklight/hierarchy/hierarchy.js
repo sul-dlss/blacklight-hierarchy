@@ -1,4 +1,4 @@
-Blacklight.onLoad(() => Blacklight.do_hierarchical_facet_expand_contract_behavior())
+Blacklight.onLoad(() => Blacklight.do_hierarchical_facet_expand_contract_behavior());
 
 (() => {
   Blacklight.do_hierarchical_facet_expand_contract_behavior = () => {
